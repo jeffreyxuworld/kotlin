@@ -1079,7 +1079,7 @@ public fun <T> Iterable<T>.toMutableList(): MutableList<T> {
  * Returns a [MutableList] filled with all elements of this collection.
  */
 public fun <T> Collection<T>.toMutableList(): MutableList<T> {
-    return ArrayList(this)
+    return ArrayList<T>(this)
 }
 
 /**
@@ -1337,7 +1337,7 @@ public infix fun <T> Iterable<T>.subtract(other: Iterable<T>): Set<T> {
  */
 public fun <T> Iterable<T>.toMutableSet(): MutableSet<T> {
     return when (this) {
-        is Collection<T> -> LinkedHashSet(this)
+        is Collection<T> -> LinkedHashSet<T>(this)
         else -> toCollection(LinkedHashSet<T>())
     }
 }
