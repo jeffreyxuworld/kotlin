@@ -304,7 +304,7 @@ class ResolveElementCache(
 
             is KtSecondaryConstructor -> secondaryConstructorAdditionalResolve(resolveSession, resolveElement, file, createStatementFilter(), bodyResolveMode.bindingTraceFilter)
 
-            is KtProperty -> propertyAdditionalResolve(resolveSession, resolveElement, file, createStatementFilter(), bodyResolveMode.bindingTraceFilter)
+            is KtProperty -> propertyAdditionalResolve(resolveSession, resolveElement, file, createStatementFilter(), bodyResolveMode)
 
             is KtSuperTypeList -> delegationSpecifierAdditionalResolve(resolveSession, resolveElement, resolveElement.getParent() as KtClassOrObject, file, bodyResolveMode.bindingTraceFilter)
 
@@ -346,9 +346,11 @@ class ResolveElementCache(
             }
         }
 
-        val controlFlowTrace = DelegatingBindingTrace(trace.bindingContext, "Element control flow resolve", resolveElement)
-        ControlFlowInformationProvider(resolveElement, controlFlowTrace).checkDeclaration()
-        controlFlowTrace.addOwnDataTo(trace, null, false)
+        if (bodyResolveMode.needControlFlowInformation) {
+            val controlFlowTrace = DelegatingBindingTrace(trace.bindingContext, "Element control flow resolve", resolveElement)
+            ControlFlowInformationProvider(resolveElement, controlFlowTrace).checkDeclaration()
+            controlFlowTrace.addOwnDataTo(trace, null, false)
+        }
 
         return Pair(trace.bindingContext, statementFilterUsed)
     }
@@ -461,11 +463,14 @@ class ResolveElementCache(
         return trace
     }
 
-    private fun propertyAdditionalResolve(resolveSession: ResolveSession, property: KtProperty,
-                                          file: KtFile,
-                                          statementFilter: StatementFilter,
-                                          bindingTraceFilter: BindingTraceFilter): BindingTrace {
-        val trace = createDelegatingTrace(property, bindingTraceFilter)
+    private fun propertyAdditionalResolve(
+            resolveSession: ResolveSession,
+            property: KtProperty,
+            file: KtFile,
+            statementFilter: StatementFilter,
+            bodyResolveMode: BodyResolveMode
+    ): BindingTrace {
+        val trace = createDelegatingTrace(property, bodyResolveMode.bindingTraceFilter)
 
         val bodyResolver = createBodyResolver(resolveSession, trace, file, statementFilter)
         val descriptor = resolveSession.resolveToDescriptor(property) as PropertyDescriptor
@@ -482,8 +487,10 @@ class ResolveElementCache(
 
         forceResolveAnnotationsInside(property)
 
-        for (accessor in property.accessors) {
-            ControlFlowInformationProvider(accessor, trace).checkDeclaration()
+        if (bodyResolveMode.needControlFlowInformation) {
+            for (accessor in property.accessors) {
+                ControlFlowInformationProvider(accessor, trace).checkDeclaration()
+            }
         }
 
         return trace
