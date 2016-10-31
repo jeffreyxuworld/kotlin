@@ -24,6 +24,7 @@ import com.intellij.psi.util.PsiTreeUtil
 import org.jetbrains.kotlin.diagnostics.DiagnosticUtils
 import org.jetbrains.kotlin.psi.KtFile
 import org.jetbrains.kotlin.psi.KtFileAnnotationList
+import org.jetbrains.kotlin.psi.KtPsiUtil
 import java.util.*
 
 // NOTE: in this file we collect only LANGUAGE INDEPENDENT methods working with PSI and not modifying it
@@ -126,6 +127,10 @@ inline fun <reified T : PsiElement> PsiElement.getStrictParentOfType(): T? {
 
 inline fun <reified T : PsiElement> PsiElement.getNonStrictParentOfType(): T? {
     return PsiTreeUtil.getParentOfType(this, T::class.java, false)
+}
+
+inline fun <reified T : PsiElement> PsiElement.getTopmostParentOfType(): T? {
+    return KtPsiUtil.getTopmostParentOfTypes(this, T::class.java) as T?
 }
 
 inline fun <reified T : PsiElement> PsiElement.getChildOfType(): T? {

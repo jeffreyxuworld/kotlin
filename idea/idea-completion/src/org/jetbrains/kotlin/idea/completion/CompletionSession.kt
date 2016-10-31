@@ -39,15 +39,12 @@ import org.jetbrains.kotlin.idea.project.ProjectStructureUtil
 import org.jetbrains.kotlin.idea.references.mainReference
 import org.jetbrains.kotlin.idea.util.*
 import org.jetbrains.kotlin.psi.*
-import org.jetbrains.kotlin.psi.psiUtil.parentsWithSelf
 import org.jetbrains.kotlin.resolve.descriptorUtil.module
-import org.jetbrains.kotlin.resolve.lazy.BodyResolveMode
 import org.jetbrains.kotlin.resolve.scopes.DescriptorKindFilter
 import org.jetbrains.kotlin.resolve.scopes.receivers.ExpressionReceiver
 import org.jetbrains.kotlin.types.TypeUtils
 import org.jetbrains.kotlin.types.checker.KotlinTypeChecker
 import org.jetbrains.kotlin.types.typeUtil.makeNotNullable
-import org.jetbrains.kotlin.utils.addToStdlib.firstIsInstance
 import java.util.*
 
 class CompletionSessionConfiguration(
@@ -103,7 +100,7 @@ abstract class CompletionSession(
         }
     }
 
-    protected val bindingContext = resolutionFacade.analyze(position.parentsWithSelf.firstIsInstance<KtElement>(), BodyResolveMode.PARTIAL_FOR_COMPLETION)
+    protected val bindingContext = CompletionBindingContextProvider.getInstance(project).getBindingContext(position, resolutionFacade)
     protected val inDescriptor = position.getResolutionScope(bindingContext, resolutionFacade).ownerDescriptor
 
     private val kotlinIdentifierStartPattern = StandardPatterns.character().javaIdentifierStart().andNot(singleCharPattern('$'))

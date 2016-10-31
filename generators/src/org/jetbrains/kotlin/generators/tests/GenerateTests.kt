@@ -90,11 +90,10 @@ import org.jetbrains.kotlin.idea.hierarchy.AbstractHierarchyWithLibTest
 import org.jetbrains.kotlin.idea.highlighter.*
 import org.jetbrains.kotlin.idea.imports.AbstractJsOptimizeImportsTest
 import org.jetbrains.kotlin.idea.imports.AbstractJvmOptimizeImportsTest
-import org.jetbrains.kotlin.idea.imports.AbstractOptimizeImportsTest
+import org.jetbrains.kotlin.idea.intentions.AbstractConcatenatedStringGeneratorTest
 import org.jetbrains.kotlin.idea.intentions.AbstractIntentionTest
 import org.jetbrains.kotlin.idea.intentions.AbstractIntentionTest2
 import org.jetbrains.kotlin.idea.intentions.AbstractMultiFileIntentionTest
-import org.jetbrains.kotlin.idea.intentions.AbstractConcatenatedStringGeneratorTest
 import org.jetbrains.kotlin.idea.intentions.declarations.AbstractJoinLinesTest
 import org.jetbrains.kotlin.idea.internal.AbstractBytecodeToolWindowTest
 import org.jetbrains.kotlin.idea.kdoc.AbstractKDocHighlightingTest
@@ -124,7 +123,8 @@ import org.jetbrains.kotlin.idea.stubs.AbstractMultiFileHighlightingTest
 import org.jetbrains.kotlin.idea.stubs.AbstractResolveByStubTest
 import org.jetbrains.kotlin.idea.stubs.AbstractStubBuilderTest
 import org.jetbrains.kotlin.integration.AbstractAntTaskTest
-import org.jetbrains.kotlin.ir.*
+import org.jetbrains.kotlin.ir.AbstractIrCfgTestCase
+import org.jetbrains.kotlin.ir.AbstractIrTextTestCase
 import org.jetbrains.kotlin.j2k.AbstractJavaToKotlinConverterForWebDemoTest
 import org.jetbrains.kotlin.j2k.AbstractJavaToKotlinConverterMultiFileTest
 import org.jetbrains.kotlin.j2k.AbstractJavaToKotlinConverterSingleFileTest
@@ -1006,6 +1006,10 @@ fun main(args: Array<String>) {
 
         testClass<AbstractJava8BasicCompletionTest>() {
             model("basic/java8")
+        }
+
+        testClass<AbstractCompletionIncrementalResolveTest>() {
+            model("incrementalResolve")
         }
     }
 
