@@ -45,10 +45,9 @@ import org.jetbrains.kotlin.resolve.lazy.BodyResolveMode
 import org.jetbrains.kotlin.types.checker.KotlinTypeChecker
 
 abstract class ChangeFunctionSignatureFix(
-        protected val context: PsiElement,
+        context: PsiElement,
         protected val functionDescriptor: FunctionDescriptor
 ) : KotlinQuickFixAction<PsiElement>(context) {
-
     override fun getFamilyName() = FAMILY_NAME
 
     override fun startInWriteAction() = false
@@ -124,7 +123,7 @@ abstract class ChangeFunctionSignatureFix(
             override fun getText() = "Remove parameter '${parameterToRemove.name.asString()}'"
 
             override fun invoke(project: Project, editor: Editor?, file: KtFile) {
-                runRemoveParameter(parameterToRemove, context)
+                runRemoveParameter(parameterToRemove, element ?: return)
             }
         }
 
