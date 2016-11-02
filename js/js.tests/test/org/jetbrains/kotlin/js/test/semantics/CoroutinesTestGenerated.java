@@ -37,30 +37,6 @@ public class CoroutinesTestGenerated extends AbstractCoroutinesTest {
         doTest(fileName);
     }
 
-    @TestMetadata("multipleInvokeCalls.kt")
-    public void ignoredMultipleInvokeCalls() throws Exception {
-        String fileName = KotlinTestUtils.navigationMetadata("compiler/testData/codegen/box/coroutines/multipleInvokeCalls.kt");
-        doTest(fileName);
-    }
-
-    @TestMetadata("multipleInvokeCallsInsideInlineLambda1.kt")
-    public void ignoredMultipleInvokeCallsInsideInlineLambda1() throws Exception {
-        String fileName = KotlinTestUtils.navigationMetadata("compiler/testData/codegen/box/coroutines/multipleInvokeCallsInsideInlineLambda1.kt");
-        doTest(fileName);
-    }
-
-    @TestMetadata("multipleInvokeCallsInsideInlineLambda2.kt")
-    public void ignoredMultipleInvokeCallsInsideInlineLambda2() throws Exception {
-        String fileName = KotlinTestUtils.navigationMetadata("compiler/testData/codegen/box/coroutines/multipleInvokeCallsInsideInlineLambda2.kt");
-        doTest(fileName);
-    }
-
-    @TestMetadata("multipleInvokeCallsInsideInlineLambda3.kt")
-    public void ignoredMultipleInvokeCallsInsideInlineLambda3() throws Exception {
-        String fileName = KotlinTestUtils.navigationMetadata("compiler/testData/codegen/box/coroutines/multipleInvokeCallsInsideInlineLambda3.kt");
-        doTest(fileName);
-    }
-
     public void testAllFilesPresentInCoroutines() throws Exception {
         KotlinTestUtils.assertAllTestsPresentByMetadata(this.getClass(), new File("compiler/testData/codegen/box/coroutines"), Pattern.compile("^(.+)\\.kt$"), true);
     }
@@ -182,6 +158,30 @@ public class CoroutinesTestGenerated extends AbstractCoroutinesTest {
     @TestMetadata("manualContinuationImpl.kt")
     public void testManualContinuationImpl() throws Exception {
         String fileName = KotlinTestUtils.navigationMetadata("compiler/testData/codegen/box/coroutines/manualContinuationImpl.kt");
+        doTest(fileName);
+    }
+
+    @TestMetadata("multipleInvokeCalls.kt")
+    public void testMultipleInvokeCalls() throws Exception {
+        String fileName = KotlinTestUtils.navigationMetadata("compiler/testData/codegen/box/coroutines/multipleInvokeCalls.kt");
+        doTest(fileName);
+    }
+
+    @TestMetadata("multipleInvokeCallsInsideInlineLambda1.kt")
+    public void testMultipleInvokeCallsInsideInlineLambda1() throws Exception {
+        String fileName = KotlinTestUtils.navigationMetadata("compiler/testData/codegen/box/coroutines/multipleInvokeCallsInsideInlineLambda1.kt");
+        doTest(fileName);
+    }
+
+    @TestMetadata("multipleInvokeCallsInsideInlineLambda2.kt")
+    public void testMultipleInvokeCallsInsideInlineLambda2() throws Exception {
+        String fileName = KotlinTestUtils.navigationMetadata("compiler/testData/codegen/box/coroutines/multipleInvokeCallsInsideInlineLambda2.kt");
+        doTest(fileName);
+    }
+
+    @TestMetadata("multipleInvokeCallsInsideInlineLambda3.kt")
+    public void testMultipleInvokeCallsInsideInlineLambda3() throws Exception {
+        String fileName = KotlinTestUtils.navigationMetadata("compiler/testData/codegen/box/coroutines/multipleInvokeCallsInsideInlineLambda3.kt");
         doTest(fileName);
     }
 
