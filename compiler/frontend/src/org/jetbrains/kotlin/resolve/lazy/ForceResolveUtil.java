@@ -24,10 +24,13 @@ import org.jetbrains.kotlin.descriptors.annotations.AnnotationWithTarget;
 import org.jetbrains.kotlin.descriptors.annotations.Annotations;
 import org.jetbrains.kotlin.resolve.DescriptorUtils;
 import org.jetbrains.kotlin.resolve.scopes.MemberScope;
-import org.jetbrains.kotlin.serialization.ProtoBuf;
-import org.jetbrains.kotlin.types.*;
+import org.jetbrains.kotlin.types.FlexibleTypesKt;
+import org.jetbrains.kotlin.types.KotlinType;
+import org.jetbrains.kotlin.types.TypeConstructor;
+import org.jetbrains.kotlin.types.TypeProjection;
 
 import java.util.Collection;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class ForceResolveUtil {
     private static final Logger LOG = Logger.getInstance(ForceResolveUtil.class);
@@ -69,6 +72,7 @@ public class ForceResolveUtil {
     private static void doForceResolveAllContents(Object object) {
         if (object instanceof LazyEntity) {
             LazyEntity lazyEntity = (LazyEntity) object;
+            RESOLVED_LAZY_ENTITIES.incrementAndGet();
             lazyEntity.forceResolveAllContents();
         }
         else if (object instanceof CallableDescriptor) {
@@ -111,4 +115,6 @@ public class ForceResolveUtil {
         }
         return type;
     }
+
+    public static AtomicInteger RESOLVED_LAZY_ENTITIES = new AtomicInteger(0);
 }
