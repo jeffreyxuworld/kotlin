@@ -233,8 +233,7 @@ open class LazyClassMemberScope(
             name: Name,
             fromSupertypes: List<SimpleFunctionDescriptor>
     ) {
-        // todo:extension-point
-        //KSerializerDescriptorResolver.generateSerializerMethods(thisDescriptor, fromSupertypes, name, result)
+        KSerializerDescriptorResolver.generateSerializerMethods(thisDescriptor, fromSupertypes, name, result)
     }
 
     override fun getContributedVariables(name: Name, location: LookupLocation): Collection<PropertyDescriptor> {

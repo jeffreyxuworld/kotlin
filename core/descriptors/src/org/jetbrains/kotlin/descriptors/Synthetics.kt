@@ -19,9 +19,7 @@
 package org.jetbrains.kotlin.descriptors
 
 fun ClassDescriptor.needsSyntheticCompanionObject(): Boolean {
-    // todo:extension-point
-    //return this.isDefaultSerializable
-    return false
+    return this.isDefaultSerializable
 }
 
 

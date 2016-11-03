@@ -364,8 +364,6 @@ public class ImplementationBodyCodegen extends ClassBodyCodegen {
 
         generateFunctionsForDataClasses();
 
-        generateSyntheticFunctions();
-
         new CollectionStubMethodGenerator(typeMapper, descriptor).generate(functionCodegen, v);
 
         generateToArray();
@@ -376,6 +374,8 @@ public class ImplementationBodyCodegen extends ClassBodyCodegen {
         for (ExpressionCodegenExtension extension : ExpressionCodegenExtension.Companion.getInstances(state.getProject())) {
             extension.generateClassSyntheticParts(v, state, myClass, descriptor);
         }
+
+        generateSyntheticExtensions();
     }
 
     @Override
@@ -793,9 +793,8 @@ public class ImplementationBodyCodegen extends ClassBodyCodegen {
         return constructor;
     }
 
-    private void generateSyntheticFunctions() {
-        // todo:extension-point
-        //SerializerCodegenImpl.generateSerializerFunctions(this);
+    private void generateSyntheticExtensions() {
+        SerializerCodegenImpl.generateSerializerExtensions(this);
     }
 
     private void generateEnumMethods() {

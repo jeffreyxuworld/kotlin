@@ -145,8 +145,7 @@ public class DescriptorResolver {
     }
 
     private void addSyntheticSupertypes(@NotNull ClassDescriptor classDescriptor, List<KotlinType> supertypes) {
-        // todo:extension-point
-        //KSerializerDescriptorResolver.addSerializerSuperType(classDescriptor, supertypes, builtIns);
+        KSerializerDescriptorResolver.addSerializerSuperType(classDescriptor, supertypes, builtIns);
     }
 
     private static void addValidSupertype(List<KotlinType> supertypes, KotlinType declaredSupertype) {
