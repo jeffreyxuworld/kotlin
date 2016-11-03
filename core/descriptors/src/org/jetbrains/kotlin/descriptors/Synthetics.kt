@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 JetBrains s.r.o.
+ * Copyright 2010-2016 JetBrains s.r.o.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package org.jetbrains.kotlin.resolve.source
+@file:JvmName("Synthetics")
 
-import com.intellij.psi.PsiElement
-import org.jetbrains.kotlin.descriptors.SourceElement
-import org.jetbrains.kotlin.fir.FirElement
+package org.jetbrains.kotlin.descriptors
 
-class KotlinSourceElement(override val psi: PsiElement) : PsiSourceElement
+fun ClassDescriptor.needsSyntheticCompanionObject(): Boolean {
+    // todo:extension-point
+    //return this.isDefaultSerializable
+    return false
+}
 
-fun FirElement?.toSourceElement(): SourceElement = if (this == null) SourceElement.NO_SOURCE else KotlinSourceElement(psiOrParent)
 
-fun SourceElement.getPsi(): PsiElement? = (this as? PsiSourceElement)?.psi

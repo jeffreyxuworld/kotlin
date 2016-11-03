@@ -38,6 +38,7 @@ import org.jetbrains.kotlin.descriptors.annotations.Annotations;
 import org.jetbrains.kotlin.descriptors.annotations.CompositeAnnotations;
 import org.jetbrains.kotlin.descriptors.impl.*;
 import org.jetbrains.kotlin.diagnostics.Errors;
+import org.jetbrains.kotlin.fir.FirClassOrObject;
 import org.jetbrains.kotlin.incremental.components.NoLookupLocation;
 import org.jetbrains.kotlin.lexer.KtTokens;
 import org.jetbrains.kotlin.name.FqName;
@@ -113,11 +114,12 @@ public class DescriptorResolver {
     public List<KotlinType> resolveSupertypes(
             @NotNull LexicalScope scope,
             @NotNull ClassDescriptor classDescriptor,
-            @NotNull KtClassOrObject jetClass,
+            @Nullable FirClassOrObject correspondingClassOrObject,
             BindingTrace trace
     ) {
         List<KotlinType> supertypes = Lists.newArrayList();
-        List<KtSuperTypeListEntry> delegationSpecifiers = jetClass.getSuperTypeListEntries();
+        List<KtSuperTypeListEntry> delegationSpecifiers = correspondingClassOrObject == null ? Collections.<KtSuperTypeListEntry>emptyList() :
+                                                          correspondingClassOrObject.getSuperTypeListEntries();
         Collection<KotlinType> declaredSupertypes = resolveSuperTypeListEntries(
                 scope,
                 delegationSpecifiers,
@@ -131,12 +133,20 @@ public class DescriptorResolver {
             supertypes.add(0, builtIns.getEnumType(classDescriptor.getDefaultType()));
         }
 
+        addSyntheticSupertypes(classDescriptor, supertypes);
+
         if (supertypes.isEmpty()) {
-            KotlinType defaultSupertype = getDefaultSupertype(jetClass, trace, classDescriptor.getKind() == ClassKind.ANNOTATION_CLASS);
+            KotlinType defaultSupertype = correspondingClassOrObject == null ? builtIns.getAnyType() :
+                    getDefaultSupertype(correspondingClassOrObject, trace, classDescriptor.getKind() == ClassKind.ANNOTATION_CLASS);
             addValidSupertype(supertypes, defaultSupertype);
         }
 
         return supertypes;
+    }
+
+    private void addSyntheticSupertypes(@NotNull ClassDescriptor classDescriptor, List<KotlinType> supertypes) {
+        // todo:extension-point
+        //KSerializerDescriptorResolver.addSerializerSuperType(classDescriptor, supertypes, builtIns);
     }
 
     private static void addValidSupertype(List<KotlinType> supertypes, KotlinType declaredSupertype) {
@@ -145,7 +155,7 @@ public class DescriptorResolver {
         }
     }
 
-    private boolean containsClass(Collection<KotlinType> result) {
+    private static boolean containsClass(Collection<KotlinType> result) {
         for (KotlinType type : result) {
             ClassifierDescriptor descriptor = type.getConstructor().getDeclarationDescriptor();
             if (descriptor instanceof ClassDescriptor && ((ClassDescriptor) descriptor).getKind() != ClassKind.INTERFACE) {
@@ -155,16 +165,17 @@ public class DescriptorResolver {
         return false;
     }
 
-    private KotlinType getDefaultSupertype(KtClassOrObject jetClass, BindingTrace trace, boolean isAnnotation) {
+    private KotlinType getDefaultSupertype(FirClassOrObject ktClass, BindingTrace trace, boolean isAnnotation) {
         // TODO : beautify
-        if (jetClass instanceof KtEnumEntry) {
-            KtClassOrObject parent = KtStubbedPsiUtil.getContainingDeclaration(jetClass, KtClassOrObject.class);
+        if (ktClass instanceof KtEnumEntry) {
+            KtEnumEntry enumClass = (KtEnumEntry) ktClass;
+            KtClassOrObject parent = KtStubbedPsiUtil.getContainingDeclaration(enumClass, KtClassOrObject.class);
             ClassDescriptor parentDescriptor = trace.getBindingContext().get(BindingContext.CLASS, parent);
             if (parentDescriptor.getTypeConstructor().getParameters().isEmpty()) {
                 return parentDescriptor.getDefaultType();
             }
             else {
-                trace.report(NO_GENERICS_IN_SUPERTYPE_SPECIFIER.on(jetClass.getNameIdentifier()));
+                trace.report(NO_GENERICS_IN_SUPERTYPE_SPECIFIER.on(enumClass.getNameIdentifier()));
                 return ErrorUtils.createErrorType("Supertype not specified");
             }
         }
@@ -416,7 +427,7 @@ public class DescriptorResolver {
 
     @NotNull
     public static ClassConstructorDescriptorImpl createAndRecordPrimaryConstructorForObject(
-            @Nullable KtClassOrObject object,
+            @Nullable FirClassOrObject object,
             @NotNull ClassDescriptor classDescriptor,
             @NotNull BindingTrace trace
     ) {
