@@ -16,7 +16,9 @@
 
 package org.jetbrains.kotlin.js.translate.reference;
 
+import com.google.dart.compiler.backend.js.ast.JsBinaryOperation;
 import com.google.dart.compiler.backend.js.ast.JsExpression;
+import com.google.dart.compiler.backend.js.ast.JsNameRef;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.kotlin.descriptors.*;
@@ -71,7 +73,12 @@ public class VariableAccessTranslator extends AbstractTranslator implements Acce
         if (original instanceof PropertyDescriptor) {
             PropertyGetterDescriptor getter = ((PropertyDescriptor) original).getGetter();
             if (InlineUtil.isInline(getter)) {
-                setInlineCallMetadata(e, referenceExpression, getter, context());
+                if (e instanceof JsNameRef) {
+                    // Get was translated as a name reference
+                    setInlineCallMetadata((JsNameRef) e, referenceExpression, getter);
+                } else {
+                    setInlineCallMetadata(e, referenceExpression, getter, context());
+                }
             }
         }
         return e;
@@ -85,7 +92,12 @@ public class VariableAccessTranslator extends AbstractTranslator implements Acce
         if (original instanceof PropertyDescriptor) {
             PropertySetterDescriptor setter = ((PropertyDescriptor)original).getSetter();
             if (InlineUtil.isInline(setter)) {
-                setInlineCallMetadata(e, referenceExpression, setter, context());
+                if (e instanceof JsBinaryOperation && ((JsBinaryOperation) e).getOperator().isAssignment()) {
+                    // Set was translated as an assignment
+                    setInlineCallMetadata((JsNameRef) (((JsBinaryOperation) e).getArg1()), referenceExpression, setter);
+                } else {
+                    setInlineCallMetadata(e, referenceExpression, setter, context());
+                }
             }
         }
         return e;

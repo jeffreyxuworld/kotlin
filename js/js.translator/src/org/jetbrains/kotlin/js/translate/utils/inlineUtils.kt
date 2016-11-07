@@ -75,6 +75,16 @@ fun setInlineCallMetadata(
         context: TranslationContext
 ) = setInlineCallMetadata(expression, psiElement, PsiUtils.getFunctionDescriptor(resolvedCall), context)
 
+fun setInlineCallMetadata(
+        nameRef: JsNameRef,
+        psiElement: KtExpression,
+        descriptor: CallableDescriptor
+) {
+    nameRef.descriptor = descriptor
+    nameRef.inlineStrategy = InlineStrategy.IN_PLACE
+    nameRef.psiElement = psiElement
+}
+
 fun TranslationContext.aliasedName(descriptor: CallableDescriptor): JsName {
     val alias = getAliasForDescriptor(descriptor)
     val aliasName = (alias as? JsNameRef)?.name

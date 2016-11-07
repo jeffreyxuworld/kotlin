@@ -133,22 +133,20 @@ fun collectJsProperties(scope: JsNode): IdentityHashMap<JsName, JsExpression> {
     return collector.properties
 }
 
-fun collectNamedFunctions(scope: JsNode): IdentityHashMap<JsName, JsFunction> {
-    val namedFunctions = IdentityHashMap<JsName, JsFunction>()
-
+fun collectNamedFunctionsAndAccessors(scope: JsNode, functions: IdentityHashMap<JsName, JsFunction>, accessors: MutableMap<String, JsFunction>)  {
     for ((name, value) in collectJsProperties(scope)) {
-        val function: JsFunction? = when (value) {
-            is JsFunction -> value
-            is JsObjectLiteral -> value.propertyInitializers?.firstOrNull()?.valueExpr.let { InlineMetadata.decompose(it)?.function }
-            else -> InlineMetadata.decompose(value)?.function
-        }
-
-        if (function != null) {
-            namedFunctions[name] = function
+        when (value) {
+            is JsFunction -> functions[name] = value
+            is JsObjectLiteral -> value.propertyInitializers.forEach {
+                InlineMetadata.decompose(it.valueExpr)?.let {
+                    accessors[it.tag.value] = it.function
+                }
+            }
+            else -> InlineMetadata.decompose(value)?.let {
+                functions[name] = it.function
+            }
         }
     }
-
-    return namedFunctions
 }
 
 fun <T : JsNode> collectInstances(klass: Class<T>, scope: JsNode): List<T> {

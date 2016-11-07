@@ -23,15 +23,19 @@ import com.google.dart.compiler.backend.js.ast.JsNode;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.HashMap;
+import java.util.IdentityHashMap;
 import java.util.Map;
 
-import static org.jetbrains.kotlin.js.inline.util.CollectUtilsKt.collectNamedFunctions;
+import static org.jetbrains.kotlin.js.inline.util.CollectUtilsKt.collectNamedFunctionsAndAccessors;
 import static org.jetbrains.kotlin.js.inline.util.CollectUtilsKt.collectJsProperties;
 
 public class AstSearchUtil {
     @NotNull
     public static JsFunction getFunction(@NotNull JsNode searchRoot, String name) {
-        JsFunction function = findByIdent(collectNamedFunctions(searchRoot), name);
+        IdentityHashMap<JsName, JsFunction> functions = new IdentityHashMap<JsName, JsFunction>();
+        collectNamedFunctionsAndAccessors(searchRoot, functions, new HashMap<String, JsFunction>());
+        JsFunction function = findByIdent(functions, name);
         assert function != null: "Function `" + name + "` was not found";
         return function;
     }
