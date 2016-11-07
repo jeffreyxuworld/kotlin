@@ -117,6 +117,15 @@ object TopDownAnalyzerFacadeForJVM {
         val languageVersionSettings =
                 configuration.get(CommonConfigurationKeys.LANGUAGE_VERSION_SETTINGS, LanguageVersionSettingsImpl.DEFAULT)
 
+        val optionalBuiltInsModule =
+                when {
+                    configuration.getBoolean(JVMConfigurationKeys.ADD_BUILT_INS_TO_DEPENDENCIES) -> when {
+                        ignoreCompilerBuiltIns -> JvmBuiltIns(storageManager).builtInsModule
+                        else -> module.builtIns.builtInsModule
+                    }
+                    else -> null
+                }
+
         val dependencyModule = if (separateModules) {
             val dependenciesContext = ContextForNewModule(
                     moduleContext, Name.special("<dependencies of ${configuration.getNotNull(CommonConfigurationKeys.MODULE_NAME)}>"),
@@ -133,12 +142,7 @@ object TopDownAnalyzerFacadeForJVM {
 
             moduleClassResolver.compiledCodeResolver = dependenciesContainer.get<JavaDescriptorResolver>()
 
-            dependenciesContext.setDependencies(listOfNotNull(
-                    dependenciesContext.module,
-                    dependenciesContext.module.builtIns.builtInsModule.check {
-                        configuration.getBoolean(JVMConfigurationKeys.ADD_BUILT_INS_TO_DEPENDENCIES)
-                    }
-            ))
+            dependenciesContext.setDependencies(listOfNotNull(dependenciesContext.module, optionalBuiltInsModule))
             dependenciesContext.initializeModuleContents(CompositePackageFragmentProvider(listOf(
                     moduleClassResolver.compiledCodeResolver.packageFragmentProvider,
                     dependenciesContainer.get<JvmBuiltInsPackageFragmentProvider>()
@@ -182,9 +186,7 @@ object TopDownAnalyzerFacadeForJVM {
 
         // TODO: remove dependencyModule from friends
         module.setDependencies(ModuleDependenciesImpl(
-                listOfNotNull(module, dependencyModule, module.builtIns.builtInsModule.check {
-                    configuration.getBoolean(JVMConfigurationKeys.ADD_BUILT_INS_TO_DEPENDENCIES)
-                }),
+                listOfNotNull(module, dependencyModule, optionalBuiltInsModule),
                 if (dependencyModule != null) setOf(dependencyModule) else emptySet()
         ))
         module.initialize(CompositePackageFragmentProvider(
