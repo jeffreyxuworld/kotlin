@@ -26,6 +26,7 @@ import org.jetbrains.kotlin.descriptors.DeclarationDescriptor;
 import org.jetbrains.kotlin.name.FqNameUnsafe;
 import org.jetbrains.kotlin.name.Name;
 
+import java.util.Arrays;
 import java.util.Map;
 
 import static com.google.dart.compiler.backend.js.ast.JsScopesKt.JsObjectScope;
@@ -94,19 +95,12 @@ public final class StandardClasses {
     }
 
     private static void declareKotlinStandardClasses(@NotNull StandardClasses standardClasses) {
-        for (PrimitiveType type : PrimitiveType.NUMBER_TYPES) {
-            if (type == PrimitiveType.CHAR || type == PrimitiveType.LONG) continue;
-
+        for (PrimitiveType type : Arrays.asList(PrimitiveType.INT, PrimitiveType.LONG, PrimitiveType.CHAR)) {
             String typeName = type.getTypeName().asString();
-            standardClasses.declare().forFQ("kotlin.ranges." + typeName + "Range").kotlinClass("NumberRange");
-            standardClasses.declare().forFQ("kotlin.ranges." + typeName + "Progression").kotlinClass("NumberProgression");
+            String rangeType = type == PrimitiveType.INT ? "Number" : typeName;
+            standardClasses.declare().forFQ("kotlin.ranges." + typeName + "Range").kotlinClass(rangeType + "Range");
+            standardClasses.declare().forFQ("kotlin.ranges." + typeName + "Progression").kotlinClass(rangeType + "Progression");
         }
-
-        standardClasses.declare().forFQ("kotlin.ranges.LongRange").kotlinClass("LongRange");
-        standardClasses.declare().forFQ("kotlin.ranges.CharRange").kotlinClass("CharRange");
-
-        standardClasses.declare().forFQ("kotlin.ranges.LongProgression").kotlinClass("LongProgression");
-        standardClasses.declare().forFQ("kotlin.ranges.CharProgression").kotlinClass("CharProgression");
 
         standardClasses.declare().forFQ("kotlin.Enum").kotlinClass("Enum");
 
