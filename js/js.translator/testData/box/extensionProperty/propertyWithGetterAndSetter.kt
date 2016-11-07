@@ -2,15 +2,20 @@ package foo
 
 class Test() {
     var a = 0
+        get() = field * 1
+
+    inline var b: Int
+        get() = a * 3
+        set(c: Int) {
+            a = c - 1
+        }
+
+    val d = 44
 }
 
-var Test.b: Int
-    get() = a * 3
-    set(c: Int) {
-        a = c - 1
-    }
+val Test.d: Int get() = 55
 
-val Test.d: Int get() = 44
+//fun Test.d(): Int = 17 + b
 
 fun box(): String {
     val c = Test()

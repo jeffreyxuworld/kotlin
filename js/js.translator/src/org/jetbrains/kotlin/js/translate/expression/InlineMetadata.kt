@@ -21,6 +21,7 @@ import org.jetbrains.kotlin.descriptors.CallableDescriptor
 import org.jetbrains.kotlin.js.translate.context.Namer
 import org.jetbrains.kotlin.js.translate.context.TranslationContext
 import org.jetbrains.kotlin.js.translate.utils.JsDescriptorUtils.*
+import org.jetbrains.kotlin.utils.singletonOrEmptyList
 
 private val METADATA_PROPERTIES_COUNT = 2
 
@@ -34,10 +35,11 @@ class InlineMetadata(val tag: JsStringLiteral, val function: JsFunction) {
         }
 
         @JvmStatic
-        fun decompose(expression: JsExpression?): InlineMetadata? =
+        fun decompose(expression: JsExpression?): List<InlineMetadata> =
                 when (expression) {
-                    is JsInvocation -> decomposeCreateFunctionCall(expression)
-                    else -> null
+                    is JsInvocation -> decomposeCreateFunctionCall(expression).singletonOrEmptyList()
+                    is JsObjectLiteral -> expression.propertyInitializers.flatMap { decompose(it.valueExpr) }
+                    else -> emptyList()
                 }
 
         private fun decomposeCreateFunctionCall(call: JsInvocation): InlineMetadata? {

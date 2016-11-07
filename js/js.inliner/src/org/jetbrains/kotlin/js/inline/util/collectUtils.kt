@@ -137,19 +137,44 @@ fun collectNamedFunctions(scope: JsNode): IdentityHashMap<JsName, JsFunction> {
     val namedFunctions = IdentityHashMap<JsName, JsFunction>()
 
     for ((name, value) in collectJsProperties(scope)) {
-        val function: JsFunction? = when (value) {
-            is JsFunction -> value
-            is JsObjectLiteral -> value.propertyInitializers?.firstOrNull()?.valueExpr.let { InlineMetadata.decompose(it)?.function }
-            else -> InlineMetadata.decompose(value)?.function
+//        println(">>> " + name.toString())
+        if (name.toString() == "b") {
+            println("!!!!!")
+            println(value)
+            println("!!!!!")
         }
 
-        if (function != null) {
-            namedFunctions[name] = function
+        when (value) {
+            is JsFunction -> namedFunctions[name] = value
+            else -> InlineMetadata.decompose(value).forEach {
+//                if (it.tag.value.endsWith("get_b")) {
+//                    namedFunctions[JsName(name.)] = it.function
+//                }
+                namedFunctions[name] = it.function
+            }
+        }
+
+//        if (function != null) {
+//            namedFunctions[name] = function
+//        }
+    }
+
+    return namedFunctions
+}
+
+fun collectHack(scope: JsNode): IdentityHashMap<JsName, List<JsFunction>> {
+    val namedFunctions = IdentityHashMap<JsName, List<JsFunction>>()
+
+    for ((name, value) in collectJsProperties(scope)) {
+        when (value) {
+            is JsFunction -> namedFunctions[name] = listOf(value)
+            else -> namedFunctions[name] = InlineMetadata.decompose(value).map { it.function }
         }
     }
 
     return namedFunctions
 }
+
 
 fun <T : JsNode> collectInstances(klass: Class<T>, scope: JsNode): List<T> {
     return with(InstanceCollector(klass, visitNestedDeclarations = false)) {

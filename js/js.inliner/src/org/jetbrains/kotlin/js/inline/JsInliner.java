@@ -43,6 +43,7 @@ import static org.jetbrains.kotlin.js.translate.utils.JsAstUtils.flattenStatemen
 public class JsInliner extends JsVisitorWithContextImpl {
 
     private final Map<JsName, JsFunction> functions;
+    private final Map<JsName, List<JsFunction>> hack;
     private final Stack<JsInliningContext> inliningContexts = new Stack<JsInliningContext>();
     private final Set<JsFunction> processedFunctions = CollectionUtilsKt.IdentitySet();
     private final Set<JsFunction> inProcessFunctions = CollectionUtilsKt.IdentitySet();
@@ -65,7 +66,8 @@ public class JsInliner extends JsVisitorWithContextImpl {
     public static JsProgram process(@NotNull TranslationContext context) {
         JsProgram program = context.program();
         IdentityHashMap<JsName, JsFunction> functions = CollectUtilsKt.collectNamedFunctions(program);
-        JsInliner inliner = new JsInliner(functions, new FunctionReader(context), context.bindingTrace());
+        IdentityHashMap<JsName, List<JsFunction>> hack = CollectUtilsKt.collectHack(program);
+        JsInliner inliner = new JsInliner(functions, hack, new FunctionReader(context), context.bindingTrace());
         inliner.accept(program);
         RemoveUnusedFunctionDefinitionsKt.removeUnusedFunctionDefinitions(program, functions);
         return program;
@@ -73,12 +75,77 @@ public class JsInliner extends JsVisitorWithContextImpl {
 
     private JsInliner(
             @NotNull Map<JsName, JsFunction> functions,
+            @NotNull Map<JsName, List<JsFunction>> hack,
             @NotNull FunctionReader functionReader,
             @NotNull DiagnosticSink trace
     ) {
         this.functions = functions;
+        this.hack = hack;
         this.functionReader = functionReader;
         this.trace = trace;
+    }
+
+    @Override
+    public void endVisit(@NotNull JsNameRef x, @NotNull JsContext ctx) {
+        if (MetadataProperties.getInlineStrategy(x) != null) {
+            System.out.println("NameRef: " + x.getName() + " " + x.getQualifier());
+
+            List<JsFunction> pIs = hack.get(x.getName());
+            for (JsFunction f : pIs) {
+                // What about reified?
+                if (f.getParameters().size() == 0) {
+                    JsInvocation dummyInvocation = new JsInvocation(f);
+
+                    MetadataProperties.setInlineStrategy(dummyInvocation, MetadataProperties.getInlineStrategy(x));
+                    MetadataProperties.setDescriptor(dummyInvocation, MetadataProperties.getDescriptor(x));
+                    MetadataProperties.setPsiElement(dummyInvocation, MetadataProperties.getPsiElement(x));
+
+                    inline(dummyInvocation, ctx);
+
+                    break;
+                }
+            }
+
+        }
+        super.endVisit(x, ctx);
+    }
+
+    @Override
+    public void endVisit(@NotNull JsBinaryOperation x, @NotNull JsContext ctx) {
+        if (x.getOperator().isAssignment() && x.getArg1() instanceof JsNameRef && MetadataProperties.getInlineStrategy((JsNameRef) x.getArg1()) != null) {
+            System.out.println(x.getArg1() + " = " + x.getArg2());
+
+
+            JsNameRef lv = (JsNameRef) x.getArg1();
+
+            List<JsFunction> pIs = hack.get(lv.getName());
+            for (JsFunction f : pIs) {
+                // What about reified?
+                if (f.getParameters().size() == 1) {
+                    JsInvocation dummyInvocation = new JsInvocation(f, x.getArg2());
+
+                    MetadataProperties.setInlineStrategy(dummyInvocation, MetadataProperties.getInlineStrategy(lv));
+                    MetadataProperties.setDescriptor(dummyInvocation, MetadataProperties.getDescriptor(lv));
+                    MetadataProperties.setPsiElement(dummyInvocation, MetadataProperties.getPsiElement(lv));
+
+                    inline(dummyInvocation, ctx);
+
+                    //JsCallInfo lastCallInfo = null;
+                    //
+                    //if (!inlineCallInfos.isEmpty()) {
+                    //    lastCallInfo = inlineCallInfos.getLast();
+                    //}
+                    //
+                    //if (lastCallInfo != null && lastCallInfo.call == dummyInvocation) {
+                    //    inlineCallInfos.removeLast();
+                    //}
+
+
+                    break;
+                }
+            }
+        }
+        super.endVisit(x, ctx);
     }
 
     @Override
