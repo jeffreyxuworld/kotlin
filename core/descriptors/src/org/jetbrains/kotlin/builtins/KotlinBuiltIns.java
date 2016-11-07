@@ -24,6 +24,7 @@ import org.jetbrains.annotations.Nullable;
 import org.jetbrains.kotlin.builtins.functions.BuiltInFictitiousFunctionClassFactory;
 import org.jetbrains.kotlin.descriptors.*;
 import org.jetbrains.kotlin.descriptors.annotations.*;
+import org.jetbrains.kotlin.descriptors.impl.EmptyPackageFragmentDescriptor;
 import org.jetbrains.kotlin.descriptors.impl.ModuleDescriptorImpl;
 import org.jetbrains.kotlin.descriptors.impl.PackageFragmentDescriptorImpl;
 import org.jetbrains.kotlin.incremental.components.NoLookupLocation;
@@ -176,20 +177,12 @@ public abstract class KotlinBuiltIns {
             @NotNull Map<FqName, PackageFragmentDescriptor> packageNameToPackageFragment,
             @NotNull final FqName packageFqName
     ) {
-        final List<PackageFragmentDescriptor> packageFragments = CollectionsKt.filter(
-                fragmentProvider.getPackageFragments(packageFqName), new Function1<PackageFragmentDescriptor, Boolean>() {
-                    @Override
-                    public Boolean invoke(PackageFragmentDescriptor descriptor) {
-                        return descriptor instanceof BuiltInsPackageFragment;
-                    }
-                }
-        );
-        if (packageFragments.isEmpty()) {
-            throw new AssertionError("Built-in package " + packageFqName + " is not found");
-        }
+        final List<PackageFragmentDescriptor> packageFragments = fragmentProvider.getPackageFragments(packageFqName);
 
         PackageFragmentDescriptor result =
-                packageFragments.size() == 1
+                packageFragments.isEmpty()
+                ? new EmptyPackageFragmentDescriptor(builtInsModule, packageFqName)
+                : packageFragments.size() == 1
                 ? packageFragments.iterator().next()
                 : new PackageFragmentDescriptorImpl(builtInsModule, packageFqName) {
                     @NotNull
@@ -405,7 +398,9 @@ public abstract class KotlinBuiltIns {
     @NotNull
     private static ClassDescriptor getBuiltInClassByName(@NotNull Name simpleName, @NotNull PackageFragmentDescriptor packageFragment) {
         ClassDescriptor classDescriptor = getBuiltInClassByNameNullable(simpleName, packageFragment);
-        assert classDescriptor != null : "Built-in class " + simpleName + " is not found";
+        if (classDescriptor == null) {
+            throw new AssertionError("Built-in class " + packageFragment.getFqName().child(simpleName).asString() + " is not found");
+        }
         return classDescriptor;
     }
 
