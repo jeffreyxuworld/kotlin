@@ -19,6 +19,7 @@ package org.jetbrains.kotlin.idea.completion.test;
 import com.intellij.testFramework.TestDataPath;
 import org.jetbrains.kotlin.test.JUnit3RunnerWithInners;
 import org.jetbrains.kotlin.test.KotlinTestUtils;
+import org.jetbrains.kotlin.test.TargetBackend;
 import org.jetbrains.kotlin.test.TestMetadata;
 import org.junit.runner.RunWith;
 
@@ -56,7 +57,7 @@ public class JvmSmartCompletionTestGenerated extends AbstractJvmSmartCompletionT
     }
 
     public void testAllFilesPresentInSmart() throws Exception {
-        KotlinTestUtils.assertAllTestsPresentByMetadata(this.getClass(), new File("idea/idea-completion/testData/smart"), Pattern.compile("^(.+)\\.kt$"), true);
+        KotlinTestUtils.assertAllTestsPresentByMetadata(this.getClass(), new File("idea/idea-completion/testData/smart"), Pattern.compile("^(.+)\\.kt$"), TargetBackend.ANY, true);
     }
 
     @TestMetadata("AnyExpected.kt")
@@ -616,7 +617,7 @@ public class JvmSmartCompletionTestGenerated extends AbstractJvmSmartCompletionT
         }
 
         public void testAllFilesPresentInAfterAs() throws Exception {
-            KotlinTestUtils.assertAllTestsPresentByMetadata(this.getClass(), new File("idea/idea-completion/testData/smart/afterAs"), Pattern.compile("^(.+)\\.kt$"), true);
+            KotlinTestUtils.assertAllTestsPresentByMetadata(this.getClass(), new File("idea/idea-completion/testData/smart/afterAs"), Pattern.compile("^(.+)\\.kt$"), TargetBackend.ANY, true);
         }
     }
 
@@ -637,7 +638,7 @@ public class JvmSmartCompletionTestGenerated extends AbstractJvmSmartCompletionT
         }
 
         public void testAllFilesPresentInAnonymousObject() throws Exception {
-            KotlinTestUtils.assertAllTestsPresentByMetadata(this.getClass(), new File("idea/idea-completion/testData/smart/anonymousObject"), Pattern.compile("^(.+)\\.kt$"), true);
+            KotlinTestUtils.assertAllTestsPresentByMetadata(this.getClass(), new File("idea/idea-completion/testData/smart/anonymousObject"), Pattern.compile("^(.+)\\.kt$"), TargetBackend.ANY, true);
         }
 
         @TestMetadata("ForJavaInterface.kt")
@@ -670,7 +671,7 @@ public class JvmSmartCompletionTestGenerated extends AbstractJvmSmartCompletionT
         }
 
         public void testAllFilesPresentInCallableReference() throws Exception {
-            KotlinTestUtils.assertAllTestsPresentByMetadata(this.getClass(), new File("idea/idea-completion/testData/smart/callableReference"), Pattern.compile("^(.+)\\.kt$"), true);
+            KotlinTestUtils.assertAllTestsPresentByMetadata(this.getClass(), new File("idea/idea-completion/testData/smart/callableReference"), Pattern.compile("^(.+)\\.kt$"), TargetBackend.ANY, true);
         }
 
         @TestMetadata("ClassLiteral.kt")
@@ -811,7 +812,7 @@ public class JvmSmartCompletionTestGenerated extends AbstractJvmSmartCompletionT
     @RunWith(JUnit3RunnerWithInners.class)
     public static class Constructor extends AbstractJvmSmartCompletionTest {
         public void testAllFilesPresentInConstructor() throws Exception {
-            KotlinTestUtils.assertAllTestsPresentByMetadata(this.getClass(), new File("idea/idea-completion/testData/smart/constructor"), Pattern.compile("^(.+)\\.kt$"), true);
+            KotlinTestUtils.assertAllTestsPresentByMetadata(this.getClass(), new File("idea/idea-completion/testData/smart/constructor"), Pattern.compile("^(.+)\\.kt$"), TargetBackend.ANY, true);
         }
 
         @TestMetadata("GenericJavaClass.kt")
@@ -904,7 +905,7 @@ public class JvmSmartCompletionTestGenerated extends AbstractJvmSmartCompletionT
         }
 
         public void testAllFilesPresentInForLoopRange() throws Exception {
-            KotlinTestUtils.assertAllTestsPresentByMetadata(this.getClass(), new File("idea/idea-completion/testData/smart/forLoopRange"), Pattern.compile("^(.+)\\.kt$"), true);
+            KotlinTestUtils.assertAllTestsPresentByMetadata(this.getClass(), new File("idea/idea-completion/testData/smart/forLoopRange"), Pattern.compile("^(.+)\\.kt$"), TargetBackend.ANY, true);
         }
 
         @TestMetadata("ExtensionIteratorMethod.kt")
@@ -979,7 +980,7 @@ public class JvmSmartCompletionTestGenerated extends AbstractJvmSmartCompletionT
         }
 
         public void testAllFilesPresentInFunctionLiterals() throws Exception {
-            KotlinTestUtils.assertAllTestsPresentByMetadata(this.getClass(), new File("idea/idea-completion/testData/smart/functionLiterals"), Pattern.compile("^(.+)\\.kt$"), true);
+            KotlinTestUtils.assertAllTestsPresentByMetadata(this.getClass(), new File("idea/idea-completion/testData/smart/functionLiterals"), Pattern.compile("^(.+)\\.kt$"), TargetBackend.ANY, true);
         }
 
         @TestMetadata("OutsideCallParenthesis1.kt")
@@ -1054,7 +1055,7 @@ public class JvmSmartCompletionTestGenerated extends AbstractJvmSmartCompletionT
     @RunWith(JUnit3RunnerWithInners.class)
     public static class Generics extends AbstractJvmSmartCompletionTest {
         public void testAllFilesPresentInGenerics() throws Exception {
-            KotlinTestUtils.assertAllTestsPresentByMetadata(this.getClass(), new File("idea/idea-completion/testData/smart/generics"), Pattern.compile("^(.+)\\.kt$"), true);
+            KotlinTestUtils.assertAllTestsPresentByMetadata(this.getClass(), new File("idea/idea-completion/testData/smart/generics"), Pattern.compile("^(.+)\\.kt$"), TargetBackend.ANY, true);
         }
 
         @TestMetadata("GenericFunction1.kt")
@@ -1099,7 +1100,7 @@ public class JvmSmartCompletionTestGenerated extends AbstractJvmSmartCompletionT
     @RunWith(JUnit3RunnerWithInners.class)
     public static class HeuristicSignatures extends AbstractJvmSmartCompletionTest {
         public void testAllFilesPresentInHeuristicSignatures() throws Exception {
-            KotlinTestUtils.assertAllTestsPresentByMetadata(this.getClass(), new File("idea/idea-completion/testData/smart/heuristicSignatures"), Pattern.compile("^(.+)\\.kt$"), true);
+            KotlinTestUtils.assertAllTestsPresentByMetadata(this.getClass(), new File("idea/idea-completion/testData/smart/heuristicSignatures"), Pattern.compile("^(.+)\\.kt$"), TargetBackend.ANY, true);
         }
 
         @TestMetadata("Contains.kt")
@@ -1210,7 +1211,7 @@ public class JvmSmartCompletionTestGenerated extends AbstractJvmSmartCompletionT
         }
 
         public void testAllFilesPresentInIfValue() throws Exception {
-            KotlinTestUtils.assertAllTestsPresentByMetadata(this.getClass(), new File("idea/idea-completion/testData/smart/ifValue"), Pattern.compile("^(.+)\\.kt$"), true);
+            KotlinTestUtils.assertAllTestsPresentByMetadata(this.getClass(), new File("idea/idea-completion/testData/smart/ifValue"), Pattern.compile("^(.+)\\.kt$"), TargetBackend.ANY, true);
         }
 
         @TestMetadata("InBlock1.kt")
@@ -1267,7 +1268,7 @@ public class JvmSmartCompletionTestGenerated extends AbstractJvmSmartCompletionT
         }
 
         public void testAllFilesPresentInInElvisOperator() throws Exception {
-            KotlinTestUtils.assertAllTestsPresentByMetadata(this.getClass(), new File("idea/idea-completion/testData/smart/inElvisOperator"), Pattern.compile("^(.+)\\.kt$"), true);
+            KotlinTestUtils.assertAllTestsPresentByMetadata(this.getClass(), new File("idea/idea-completion/testData/smart/inElvisOperator"), Pattern.compile("^(.+)\\.kt$"), TargetBackend.ANY, true);
         }
     }
 
@@ -1276,7 +1277,7 @@ public class JvmSmartCompletionTestGenerated extends AbstractJvmSmartCompletionT
     @RunWith(JUnit3RunnerWithInners.class)
     public static class InOperator extends AbstractJvmSmartCompletionTest {
         public void testAllFilesPresentInInOperator() throws Exception {
-            KotlinTestUtils.assertAllTestsPresentByMetadata(this.getClass(), new File("idea/idea-completion/testData/smart/inOperator"), Pattern.compile("^(.+)\\.kt$"), true);
+            KotlinTestUtils.assertAllTestsPresentByMetadata(this.getClass(), new File("idea/idea-completion/testData/smart/inOperator"), Pattern.compile("^(.+)\\.kt$"), TargetBackend.ANY, true);
         }
 
         @TestMetadata("ExtensionContains.kt")
@@ -1363,7 +1364,7 @@ public class JvmSmartCompletionTestGenerated extends AbstractJvmSmartCompletionT
         }
 
         public void testAllFilesPresentInInheritors() throws Exception {
-            KotlinTestUtils.assertAllTestsPresentByMetadata(this.getClass(), new File("idea/idea-completion/testData/smart/inheritors"), Pattern.compile("^(.+)\\.kt$"), true);
+            KotlinTestUtils.assertAllTestsPresentByMetadata(this.getClass(), new File("idea/idea-completion/testData/smart/inheritors"), Pattern.compile("^(.+)\\.kt$"), TargetBackend.ANY, true);
         }
 
         @TestMetadata("GenericClass1.kt")
@@ -1474,7 +1475,7 @@ public class JvmSmartCompletionTestGenerated extends AbstractJvmSmartCompletionT
         }
 
         public void testAllFilesPresentInMultipleArgsItem() throws Exception {
-            KotlinTestUtils.assertAllTestsPresentByMetadata(this.getClass(), new File("idea/idea-completion/testData/smart/multipleArgsItem"), Pattern.compile("^(.+)\\.kt$"), true);
+            KotlinTestUtils.assertAllTestsPresentByMetadata(this.getClass(), new File("idea/idea-completion/testData/smart/multipleArgsItem"), Pattern.compile("^(.+)\\.kt$"), TargetBackend.ANY, true);
         }
 
         @TestMetadata("CallWithBrackets.kt")
@@ -1489,7 +1490,7 @@ public class JvmSmartCompletionTestGenerated extends AbstractJvmSmartCompletionT
     @RunWith(JUnit3RunnerWithInners.class)
     public static class PropertyDelegate extends AbstractJvmSmartCompletionTest {
         public void testAllFilesPresentInPropertyDelegate() throws Exception {
-            KotlinTestUtils.assertAllTestsPresentByMetadata(this.getClass(), new File("idea/idea-completion/testData/smart/propertyDelegate"), Pattern.compile("^(.+)\\.kt$"), true);
+            KotlinTestUtils.assertAllTestsPresentByMetadata(this.getClass(), new File("idea/idea-completion/testData/smart/propertyDelegate"), Pattern.compile("^(.+)\\.kt$"), TargetBackend.ANY, true);
         }
 
         @TestMetadata("ConflictingSubstitutors.kt")
@@ -1642,7 +1643,7 @@ public class JvmSmartCompletionTestGenerated extends AbstractJvmSmartCompletionT
     @RunWith(JUnit3RunnerWithInners.class)
     public static class SmartCasts extends AbstractJvmSmartCompletionTest {
         public void testAllFilesPresentInSmartCasts() throws Exception {
-            KotlinTestUtils.assertAllTestsPresentByMetadata(this.getClass(), new File("idea/idea-completion/testData/smart/smartCasts"), Pattern.compile("^(.+)\\.kt$"), true);
+            KotlinTestUtils.assertAllTestsPresentByMetadata(this.getClass(), new File("idea/idea-completion/testData/smart/smartCasts"), Pattern.compile("^(.+)\\.kt$"), TargetBackend.ANY, true);
         }
 
         @TestMetadata("AutoNotNullThisType.kt")
@@ -1711,7 +1712,7 @@ public class JvmSmartCompletionTestGenerated extends AbstractJvmSmartCompletionT
     @RunWith(JUnit3RunnerWithInners.class)
     public static class This extends AbstractJvmSmartCompletionTest {
         public void testAllFilesPresentInThis() throws Exception {
-            KotlinTestUtils.assertAllTestsPresentByMetadata(this.getClass(), new File("idea/idea-completion/testData/smart/this"), Pattern.compile("^(.+)\\.kt$"), true);
+            KotlinTestUtils.assertAllTestsPresentByMetadata(this.getClass(), new File("idea/idea-completion/testData/smart/this"), Pattern.compile("^(.+)\\.kt$"), TargetBackend.ANY, true);
         }
 
         @TestMetadata("NoQualifiedThisOfAnonymousObject.kt")
@@ -1798,7 +1799,7 @@ public class JvmSmartCompletionTestGenerated extends AbstractJvmSmartCompletionT
         }
 
         public void testAllFilesPresentInVararg() throws Exception {
-            KotlinTestUtils.assertAllTestsPresentByMetadata(this.getClass(), new File("idea/idea-completion/testData/smart/vararg"), Pattern.compile("^(.+)\\.kt$"), true);
+            KotlinTestUtils.assertAllTestsPresentByMetadata(this.getClass(), new File("idea/idea-completion/testData/smart/vararg"), Pattern.compile("^(.+)\\.kt$"), TargetBackend.ANY, true);
         }
 
         @TestMetadata("NamedArgumentAfterStar.kt")
@@ -1873,7 +1874,7 @@ public class JvmSmartCompletionTestGenerated extends AbstractJvmSmartCompletionT
         }
 
         public void testAllFilesPresentInWhenEntry() throws Exception {
-            KotlinTestUtils.assertAllTestsPresentByMetadata(this.getClass(), new File("idea/idea-completion/testData/smart/whenEntry"), Pattern.compile("^(.+)\\.kt$"), true);
+            KotlinTestUtils.assertAllTestsPresentByMetadata(this.getClass(), new File("idea/idea-completion/testData/smart/whenEntry"), Pattern.compile("^(.+)\\.kt$"), TargetBackend.ANY, true);
         }
 
         @TestMetadata("WhenWithNoSubject1.kt")
