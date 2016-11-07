@@ -60,6 +60,8 @@ public class JVMConfigurationKeys {
             CompilerConfigurationKey.create("combine modules for source files and binary dependencies into a single module");
     public static final CompilerConfigurationKey<Boolean> ADD_BUILT_INS_TO_DEPENDENCIES =
             CompilerConfigurationKey.create("add built-ins to dependencies");
+    public static final CompilerConfigurationKey<Boolean> IGNORE_COMPILER_BUILT_INS =
+            CompilerConfigurationKey.create("ignore compiler built-ins completely");
 
     public static final CompilerConfigurationKey<JvmTarget> JVM_TARGET =
             CompilerConfigurationKey.create("JVM bytecode target version");

@@ -16,6 +16,7 @@
 
 package org.jetbrains.kotlin.builtins;
 
+import kotlin.collections.CollectionsKt;
 import kotlin.jvm.functions.Function0;
 import kotlin.jvm.functions.Function1;
 import org.jetbrains.annotations.NotNull;
@@ -24,12 +25,14 @@ import org.jetbrains.kotlin.builtins.functions.BuiltInFictitiousFunctionClassFac
 import org.jetbrains.kotlin.descriptors.*;
 import org.jetbrains.kotlin.descriptors.annotations.*;
 import org.jetbrains.kotlin.descriptors.impl.ModuleDescriptorImpl;
+import org.jetbrains.kotlin.descriptors.impl.PackageFragmentDescriptorImpl;
 import org.jetbrains.kotlin.incremental.components.NoLookupLocation;
 import org.jetbrains.kotlin.name.ClassId;
 import org.jetbrains.kotlin.name.FqName;
 import org.jetbrains.kotlin.name.FqNameUnsafe;
 import org.jetbrains.kotlin.name.Name;
 import org.jetbrains.kotlin.resolve.DescriptorUtils;
+import org.jetbrains.kotlin.resolve.scopes.ChainedMemberScope;
 import org.jetbrains.kotlin.resolve.scopes.MemberScope;
 import org.jetbrains.kotlin.serialization.deserialization.AdditionalClassPartsProvider;
 import org.jetbrains.kotlin.serialization.deserialization.ClassDescriptorFactory;
@@ -42,7 +45,6 @@ import org.jetbrains.kotlin.types.checker.KotlinTypeChecker;
 import java.io.InputStream;
 import java.util.*;
 
-import static kotlin.collections.CollectionsKt.single;
 import static kotlin.collections.SetsKt.setOf;
 import static org.jetbrains.kotlin.builtins.PrimitiveType.*;
 import static org.jetbrains.kotlin.resolve.DescriptorUtils.getFqName;
@@ -137,6 +139,22 @@ public abstract class KotlinBuiltIns {
         builtInsModule.initialize(packageFragmentProvider);
         builtInsModule.setDependencies(builtInsModule);
     }
+
+    public void setBuiltInsModule(@NotNull final ModuleDescriptorImpl module) {
+        storageManager.compute(new Function0<Void>() {
+            @Override
+            public Void invoke() {
+                if (builtInsModule != null) {
+                    throw new AssertionError(
+                            "Built-ins module is already set: " + builtInsModule + " (attempting to reset to " + module + ")"
+                    );
+                }
+                builtInsModule = module;
+                return null;
+            }
+        });
+    }
+
     @NotNull
     protected AdditionalClassPartsProvider getAdditionalClassPartsProvider() {
         return AdditionalClassPartsProvider.None.INSTANCE;
@@ -153,14 +171,47 @@ public abstract class KotlinBuiltIns {
     }
 
     @NotNull
-    private static PackageFragmentDescriptor createPackage(
+    private PackageFragmentDescriptor createPackage(
             @NotNull PackageFragmentProvider fragmentProvider,
             @NotNull Map<FqName, PackageFragmentDescriptor> packageNameToPackageFragment,
-            @NotNull FqName packageFqName
+            @NotNull final FqName packageFqName
     ) {
-        PackageFragmentDescriptor packageFragment = single(fragmentProvider.getPackageFragments(packageFqName));
-        packageNameToPackageFragment.put(packageFqName, packageFragment);
-        return packageFragment;
+        final List<PackageFragmentDescriptor> packageFragments = CollectionsKt.filter(
+                fragmentProvider.getPackageFragments(packageFqName), new Function1<PackageFragmentDescriptor, Boolean>() {
+                    @Override
+                    public Boolean invoke(PackageFragmentDescriptor descriptor) {
+                        return descriptor instanceof BuiltInsPackageFragment;
+                    }
+                }
+        );
+        if (packageFragments.isEmpty()) {
+            throw new AssertionError("Built-in package " + packageFqName + " is not found");
+        }
+
+        PackageFragmentDescriptor result =
+                packageFragments.size() == 1
+                ? packageFragments.iterator().next()
+                : new PackageFragmentDescriptorImpl(builtInsModule, packageFqName) {
+                    @NotNull
+                    @Override
+                    public MemberScope getMemberScope() {
+                        return new ChainedMemberScope(
+                                "built-in package " + packageFqName,
+                                CollectionsKt.map(
+                                        packageFragments,
+                                        new Function1<PackageFragmentDescriptor, MemberScope>() {
+                                            @Override
+                                            public MemberScope invoke(PackageFragmentDescriptor descriptor) {
+                                                return descriptor.getMemberScope();
+                                            }
+                                        }
+                                )
+                        );
+                    }
+                };
+
+        packageNameToPackageFragment.put(packageFqName, result);
+        return result;
     }
 
     @NotNull

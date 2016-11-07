@@ -334,6 +334,7 @@ class K2JVMCompiler : CLICompiler<K2JVMCompilerArguments>() {
             configuration.put(CLIConfigurationKeys.REPORT_PERF, arguments.reportPerf)
             configuration.put(JVMConfigurationKeys.USE_SINGLE_MODULE, arguments.singleModule)
             configuration.put(JVMConfigurationKeys.ADD_BUILT_INS_TO_DEPENDENCIES, arguments.addCompilerBuiltIns)
+            configuration.put(JVMConfigurationKeys.IGNORE_COMPILER_BUILT_INS, arguments.ignoreCompilerBuiltIns)
 
             arguments.declarationsOutputPath?.let { configuration.put(JVMConfigurationKeys.DECLARATIONS_JSON_PATH, it) }
         }

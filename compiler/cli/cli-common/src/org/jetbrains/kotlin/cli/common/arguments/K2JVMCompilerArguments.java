@@ -104,6 +104,9 @@ public class K2JVMCompilerArguments extends CommonCompilerArguments {
     @Argument(value = "Xadd-compiler-builtins", description = "Add definitions of built-in declarations to the compilation classpath (useful with -no-stdlib)")
     public boolean addCompilerBuiltIns;
 
+    @Argument(value = "Xignore-compiler-builtins", description = "Completely ignore definitions of built-in declarations present in the compiler")
+    public boolean ignoreCompilerBuiltIns;
+
     @Argument(value = "Xinterface-compatibility", description = "Generate DefaultImpls classes for interfaces in JVM target bytecode version 1.8 for binary compatibility with 1.6")
     public boolean interfaceCompatibility;
 

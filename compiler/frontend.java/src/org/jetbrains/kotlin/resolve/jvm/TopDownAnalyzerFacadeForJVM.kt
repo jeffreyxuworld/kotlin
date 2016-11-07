@@ -99,7 +99,8 @@ object TopDownAnalyzerFacadeForJVM {
             declarationProviderFactory: (StorageManager, Collection<KtFile>) -> DeclarationProviderFactory,
             sourceModuleSearchScope: GlobalSearchScope = newModuleSearchScope(project, files)
     ): ComponentProvider {
-        val moduleContext = createModuleContext(project, configuration)
+        val ignoreCompilerBuiltIns = configuration.getBoolean(JVMConfigurationKeys.IGNORE_COMPILER_BUILT_INS)
+        val moduleContext = createModuleContext(project, configuration, !ignoreCompilerBuiltIns)
 
         val storageManager = moduleContext.storageManager
         val module = moduleContext.module
@@ -225,15 +226,23 @@ object TopDownAnalyzerFacadeForJVM {
     }
 
     fun createContextWithSealedModule(project: Project, configuration: CompilerConfiguration): MutableModuleContext =
-            createModuleContext(project, configuration).apply {
+            createModuleContext(project, configuration, true).apply {
                 setDependencies(module, module.builtIns.builtInsModule)
             }
 
-    private fun createModuleContext(project: Project, configuration: CompilerConfiguration): MutableModuleContext {
+    private fun createModuleContext(
+            project: Project,
+            configuration: CompilerConfiguration,
+            createBuiltInsModule: Boolean
+    ): MutableModuleContext {
         val projectContext = ProjectContext(project)
+        val builtIns = JvmBuiltIns(projectContext.storageManager, createBuiltInsModule)
         return ContextForNewModule(
-                projectContext, Name.special("<${configuration.getNotNull(CommonConfigurationKeys.MODULE_NAME)}>"),
-                JvmBuiltIns(projectContext.storageManager)
-        )
+                projectContext, Name.special("<${configuration.getNotNull(CommonConfigurationKeys.MODULE_NAME)}>"), builtIns
+        ).apply {
+            if (!createBuiltInsModule) {
+                builtIns.builtInsModule = module
+            }
+        }
     }
 }
