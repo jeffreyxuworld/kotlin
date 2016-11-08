@@ -5,8 +5,6 @@ package kotlin.collections
 // See: https://github.com/JetBrains/kotlin/tree/master/libraries/stdlib
 //
 
-import java.util.*
-
 /**
  * Returns a [List] that wraps the original array.
  */

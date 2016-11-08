@@ -9,8 +9,6 @@ package kotlin.sequences
 //
 
 import kotlin.comparisons.*
-import java.util.*
-
 /**
  * Returns `true` if [element] is found in the sequence.
  */
