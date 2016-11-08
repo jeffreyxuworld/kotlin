@@ -23,6 +23,8 @@ import kotlin.jvm.functions.Function1;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.kotlin.descriptors.CallableDescriptor;
+import org.jetbrains.kotlin.descriptors.PropertyGetterDescriptor;
+import org.jetbrains.kotlin.descriptors.PropertySetterDescriptor;
 import org.jetbrains.kotlin.diagnostics.DiagnosticSink;
 import org.jetbrains.kotlin.diagnostics.Errors;
 import org.jetbrains.kotlin.js.inline.clean.FunctionPostProcessor;
@@ -87,20 +89,22 @@ public class JsInliner extends JsVisitorWithContextImpl {
 
     @Override
     public void endVisit(@NotNull JsNameRef x, @NotNull JsContext ctx) {
-        if (MetadataProperties.getInlineStrategy(x) != null) {
+        if (MetadataProperties.getInlineStrategy(x) != null && MetadataProperties.getDescriptor(x) instanceof PropertyGetterDescriptor) {
             System.out.println("NameRef: " + x.getName() + " " + x.getQualifier());
 
             List<JsFunction> pIs = hack.get(x.getName());
             for (JsFunction f : pIs) {
                 // What about reified?
                 if (f.getParameters().size() == 0) {
-                    JsInvocation dummyInvocation = new JsInvocation(f);
+                    JsInvocation dummyInvocation = new JsInvocation(x);
 
                     MetadataProperties.setInlineStrategy(dummyInvocation, MetadataProperties.getInlineStrategy(x));
                     MetadataProperties.setDescriptor(dummyInvocation, MetadataProperties.getDescriptor(x));
                     MetadataProperties.setPsiElement(dummyInvocation, MetadataProperties.getPsiElement(x));
 
-                    //inline(dummyInvocation, ctx);
+                    functions.put(x.getName(), f);
+
+                    inline(dummyInvocation, ctx);
 
                     break;
                 }
@@ -112,7 +116,8 @@ public class JsInliner extends JsVisitorWithContextImpl {
 
     @Override
     public void endVisit(@NotNull JsBinaryOperation x, @NotNull JsContext ctx) {
-        if (x.getOperator().isAssignment() && x.getArg1() instanceof JsNameRef && MetadataProperties.getInlineStrategy((JsNameRef) x.getArg1()) != null) {
+        if (x.getOperator().isAssignment() && x.getArg1() instanceof JsNameRef && MetadataProperties.getInlineStrategy((JsNameRef) x.getArg1()) != null
+        && MetadataProperties.getDescriptor((JsNameRef) x.getArg1()) instanceof PropertySetterDescriptor) {
             System.out.println(x.getArg1() + " = " + x.getArg2());
 
 
@@ -122,13 +127,18 @@ public class JsInliner extends JsVisitorWithContextImpl {
             for (JsFunction f : pIs) {
                 // What about reified?
                 if (f.getParameters().size() == 1) {
-                    JsInvocation dummyInvocation = new JsInvocation(f, x.getArg2());
+                    JsInvocation dummyInvocation = new JsInvocation(lv, x.getArg2());
 
                     MetadataProperties.setInlineStrategy(dummyInvocation, MetadataProperties.getInlineStrategy(lv));
                     MetadataProperties.setDescriptor(dummyInvocation, MetadataProperties.getDescriptor(lv));
                     MetadataProperties.setPsiElement(dummyInvocation, MetadataProperties.getPsiElement(lv));
 
                     //inliningContexts.push(new)
+
+                    getInliningContext().getStatementContext().replaceMe(new JsExpressionStatement(dummyInvocation));
+
+
+                    functions.put(lv.getName(), f);
 
                     inline(dummyInvocation, ctx);
 
