@@ -12455,7 +12455,7 @@ public fun CharArray.asList(): List<Char> {
  */
 @kotlin.jvm.JvmVersion
 public fun <T> Array<out T>.binarySearch(element: T, comparator: Comparator<in T>, fromIndex: Int = 0, toIndex: Int = size): Int {
-    return Arrays.binarySearch(this, fromIndex, toIndex, element, comparator)
+    return java.util.Arrays.binarySearch(this, fromIndex, toIndex, element, comparator)
 }
 
 /**
@@ -12471,7 +12471,7 @@ public fun <T> Array<out T>.binarySearch(element: T, comparator: Comparator<in T
  */
 @kotlin.jvm.JvmVersion
 public fun <T> Array<out T>.binarySearch(element: T, fromIndex: Int = 0, toIndex: Int = size): Int {
-    return Arrays.binarySearch(this, fromIndex, toIndex, element)
+    return java.util.Arrays.binarySearch(this, fromIndex, toIndex, element)
 }
 
 /**
@@ -12487,7 +12487,7 @@ public fun <T> Array<out T>.binarySearch(element: T, fromIndex: Int = 0, toIndex
  */
 @kotlin.jvm.JvmVersion
 public fun ByteArray.binarySearch(element: Byte, fromIndex: Int = 0, toIndex: Int = size): Int {
-    return Arrays.binarySearch(this, fromIndex, toIndex, element)
+    return java.util.Arrays.binarySearch(this, fromIndex, toIndex, element)
 }
 
 /**
@@ -12503,7 +12503,7 @@ public fun ByteArray.binarySearch(element: Byte, fromIndex: Int = 0, toIndex: In
  */
 @kotlin.jvm.JvmVersion
 public fun ShortArray.binarySearch(element: Short, fromIndex: Int = 0, toIndex: Int = size): Int {
-    return Arrays.binarySearch(this, fromIndex, toIndex, element)
+    return java.util.Arrays.binarySearch(this, fromIndex, toIndex, element)
 }
 
 /**
@@ -12519,7 +12519,7 @@ public fun ShortArray.binarySearch(element: Short, fromIndex: Int = 0, toIndex: 
  */
 @kotlin.jvm.JvmVersion
 public fun IntArray.binarySearch(element: Int, fromIndex: Int = 0, toIndex: Int = size): Int {
-    return Arrays.binarySearch(this, fromIndex, toIndex, element)
+    return java.util.Arrays.binarySearch(this, fromIndex, toIndex, element)
 }
 
 /**
@@ -12535,7 +12535,7 @@ public fun IntArray.binarySearch(element: Int, fromIndex: Int = 0, toIndex: Int 
  */
 @kotlin.jvm.JvmVersion
 public fun LongArray.binarySearch(element: Long, fromIndex: Int = 0, toIndex: Int = size): Int {
-    return Arrays.binarySearch(this, fromIndex, toIndex, element)
+    return java.util.Arrays.binarySearch(this, fromIndex, toIndex, element)
 }
 
 /**
@@ -12551,7 +12551,7 @@ public fun LongArray.binarySearch(element: Long, fromIndex: Int = 0, toIndex: In
  */
 @kotlin.jvm.JvmVersion
 public fun FloatArray.binarySearch(element: Float, fromIndex: Int = 0, toIndex: Int = size): Int {
-    return Arrays.binarySearch(this, fromIndex, toIndex, element)
+    return java.util.Arrays.binarySearch(this, fromIndex, toIndex, element)
 }
 
 /**
@@ -12567,7 +12567,7 @@ public fun FloatArray.binarySearch(element: Float, fromIndex: Int = 0, toIndex: 
  */
 @kotlin.jvm.JvmVersion
 public fun DoubleArray.binarySearch(element: Double, fromIndex: Int = 0, toIndex: Int = size): Int {
-    return Arrays.binarySearch(this, fromIndex, toIndex, element)
+    return java.util.Arrays.binarySearch(this, fromIndex, toIndex, element)
 }
 
 /**
@@ -12583,7 +12583,7 @@ public fun DoubleArray.binarySearch(element: Double, fromIndex: Int = 0, toIndex
  */
 @kotlin.jvm.JvmVersion
 public fun CharArray.binarySearch(element: Char, fromIndex: Int = 0, toIndex: Int = size): Int {
-    return Arrays.binarySearch(this, fromIndex, toIndex, element)
+    return java.util.Arrays.binarySearch(this, fromIndex, toIndex, element)
 }
 
 /**
@@ -12592,7 +12592,7 @@ public fun CharArray.binarySearch(element: Char, fromIndex: Int = 0, toIndex: In
 @kotlin.jvm.JvmVersion
 @kotlin.internal.InlineOnly
 public inline fun <T> Array<T>.copyOf(): Array<T> {
-    return Arrays.copyOf(this, size)
+    return java.util.Arrays.copyOf(this, size)
 }
 
 /**
@@ -12601,7 +12601,7 @@ public inline fun <T> Array<T>.copyOf(): Array<T> {
 @kotlin.jvm.JvmVersion
 @kotlin.internal.InlineOnly
 public inline fun ByteArray.copyOf(): ByteArray {
-    return Arrays.copyOf(this, size)
+    return java.util.Arrays.copyOf(this, size)
 }
 
 /**
@@ -12610,7 +12610,7 @@ public inline fun ByteArray.copyOf(): ByteArray {
 @kotlin.jvm.JvmVersion
 @kotlin.internal.InlineOnly
 public inline fun ShortArray.copyOf(): ShortArray {
-    return Arrays.copyOf(this, size)
+    return java.util.Arrays.copyOf(this, size)
 }
 
 /**
@@ -12619,7 +12619,7 @@ public inline fun ShortArray.copyOf(): ShortArray {
 @kotlin.jvm.JvmVersion
 @kotlin.internal.InlineOnly
 public inline fun IntArray.copyOf(): IntArray {
-    return Arrays.copyOf(this, size)
+    return java.util.Arrays.copyOf(this, size)
 }
 
 /**
@@ -12628,7 +12628,7 @@ public inline fun IntArray.copyOf(): IntArray {
 @kotlin.jvm.JvmVersion
 @kotlin.internal.InlineOnly
 public inline fun LongArray.copyOf(): LongArray {
-    return Arrays.copyOf(this, size)
+    return java.util.Arrays.copyOf(this, size)
 }
 
 /**
@@ -12637,7 +12637,7 @@ public inline fun LongArray.copyOf(): LongArray {
 @kotlin.jvm.JvmVersion
 @kotlin.internal.InlineOnly
 public inline fun FloatArray.copyOf(): FloatArray {
-    return Arrays.copyOf(this, size)
+    return java.util.Arrays.copyOf(this, size)
 }
 
 /**
@@ -12646,7 +12646,7 @@ public inline fun FloatArray.copyOf(): FloatArray {
 @kotlin.jvm.JvmVersion
 @kotlin.internal.InlineOnly
 public inline fun DoubleArray.copyOf(): DoubleArray {
-    return Arrays.copyOf(this, size)
+    return java.util.Arrays.copyOf(this, size)
 }
 
 /**
@@ -12655,7 +12655,7 @@ public inline fun DoubleArray.copyOf(): DoubleArray {
 @kotlin.jvm.JvmVersion
 @kotlin.internal.InlineOnly
 public inline fun BooleanArray.copyOf(): BooleanArray {
-    return Arrays.copyOf(this, size)
+    return java.util.Arrays.copyOf(this, size)
 }
 
 /**
@@ -12664,7 +12664,7 @@ public inline fun BooleanArray.copyOf(): BooleanArray {
 @kotlin.jvm.JvmVersion
 @kotlin.internal.InlineOnly
 public inline fun CharArray.copyOf(): CharArray {
-    return Arrays.copyOf(this, size)
+    return java.util.Arrays.copyOf(this, size)
 }
 
 /**
@@ -12673,7 +12673,7 @@ public inline fun CharArray.copyOf(): CharArray {
 @kotlin.jvm.JvmVersion
 @kotlin.internal.InlineOnly
 public inline fun <T> Array<T>.copyOf(newSize: Int): Array<T?> {
-    return Arrays.copyOf(this, newSize)
+    return java.util.Arrays.copyOf(this, newSize)
 }
 
 /**
@@ -12682,7 +12682,7 @@ public inline fun <T> Array<T>.copyOf(newSize: Int): Array<T?> {
 @kotlin.jvm.JvmVersion
 @kotlin.internal.InlineOnly
 public inline fun ByteArray.copyOf(newSize: Int): ByteArray {
-    return Arrays.copyOf(this, newSize)
+    return java.util.Arrays.copyOf(this, newSize)
 }
 
 /**
@@ -12691,7 +12691,7 @@ public inline fun ByteArray.copyOf(newSize: Int): ByteArray {
 @kotlin.jvm.JvmVersion
 @kotlin.internal.InlineOnly
 public inline fun ShortArray.copyOf(newSize: Int): ShortArray {
-    return Arrays.copyOf(this, newSize)
+    return java.util.Arrays.copyOf(this, newSize)
 }
 
 /**
@@ -12700,7 +12700,7 @@ public inline fun ShortArray.copyOf(newSize: Int): ShortArray {
 @kotlin.jvm.JvmVersion
 @kotlin.internal.InlineOnly
 public inline fun IntArray.copyOf(newSize: Int): IntArray {
-    return Arrays.copyOf(this, newSize)
+    return java.util.Arrays.copyOf(this, newSize)
 }
 
 /**
@@ -12709,7 +12709,7 @@ public inline fun IntArray.copyOf(newSize: Int): IntArray {
 @kotlin.jvm.JvmVersion
 @kotlin.internal.InlineOnly
 public inline fun LongArray.copyOf(newSize: Int): LongArray {
-    return Arrays.copyOf(this, newSize)
+    return java.util.Arrays.copyOf(this, newSize)
 }
 
 /**
@@ -12718,7 +12718,7 @@ public inline fun LongArray.copyOf(newSize: Int): LongArray {
 @kotlin.jvm.JvmVersion
 @kotlin.internal.InlineOnly
 public inline fun FloatArray.copyOf(newSize: Int): FloatArray {
-    return Arrays.copyOf(this, newSize)
+    return java.util.Arrays.copyOf(this, newSize)
 }
 
 /**
@@ -12727,7 +12727,7 @@ public inline fun FloatArray.copyOf(newSize: Int): FloatArray {
 @kotlin.jvm.JvmVersion
 @kotlin.internal.InlineOnly
 public inline fun DoubleArray.copyOf(newSize: Int): DoubleArray {
-    return Arrays.copyOf(this, newSize)
+    return java.util.Arrays.copyOf(this, newSize)
 }
 
 /**
@@ -12736,7 +12736,7 @@ public inline fun DoubleArray.copyOf(newSize: Int): DoubleArray {
 @kotlin.jvm.JvmVersion
 @kotlin.internal.InlineOnly
 public inline fun BooleanArray.copyOf(newSize: Int): BooleanArray {
-    return Arrays.copyOf(this, newSize)
+    return java.util.Arrays.copyOf(this, newSize)
 }
 
 /**
@@ -12745,7 +12745,7 @@ public inline fun BooleanArray.copyOf(newSize: Int): BooleanArray {
 @kotlin.jvm.JvmVersion
 @kotlin.internal.InlineOnly
 public inline fun CharArray.copyOf(newSize: Int): CharArray {
-    return Arrays.copyOf(this, newSize)
+    return java.util.Arrays.copyOf(this, newSize)
 }
 
 /**
@@ -12754,7 +12754,7 @@ public inline fun CharArray.copyOf(newSize: Int): CharArray {
 @kotlin.jvm.JvmVersion
 @kotlin.internal.InlineOnly
 public inline fun <T> Array<T>.copyOfRange(fromIndex: Int, toIndex: Int): Array<T> {
-    return Arrays.copyOfRange(this, fromIndex, toIndex)
+    return java.util.Arrays.copyOfRange(this, fromIndex, toIndex)
 }
 
 /**
@@ -12763,7 +12763,7 @@ public inline fun <T> Array<T>.copyOfRange(fromIndex: Int, toIndex: Int): Array<
 @kotlin.jvm.JvmVersion
 @kotlin.internal.InlineOnly
 public inline fun ByteArray.copyOfRange(fromIndex: Int, toIndex: Int): ByteArray {
-    return Arrays.copyOfRange(this, fromIndex, toIndex)
+    return java.util.Arrays.copyOfRange(this, fromIndex, toIndex)
 }
 
 /**
@@ -12772,7 +12772,7 @@ public inline fun ByteArray.copyOfRange(fromIndex: Int, toIndex: Int): ByteArray
 @kotlin.jvm.JvmVersion
 @kotlin.internal.InlineOnly
 public inline fun ShortArray.copyOfRange(fromIndex: Int, toIndex: Int): ShortArray {
-    return Arrays.copyOfRange(this, fromIndex, toIndex)
+    return java.util.Arrays.copyOfRange(this, fromIndex, toIndex)
 }
 
 /**
@@ -12781,7 +12781,7 @@ public inline fun ShortArray.copyOfRange(fromIndex: Int, toIndex: Int): ShortArr
 @kotlin.jvm.JvmVersion
 @kotlin.internal.InlineOnly
 public inline fun IntArray.copyOfRange(fromIndex: Int, toIndex: Int): IntArray {
-    return Arrays.copyOfRange(this, fromIndex, toIndex)
+    return java.util.Arrays.copyOfRange(this, fromIndex, toIndex)
 }
 
 /**
@@ -12790,7 +12790,7 @@ public inline fun IntArray.copyOfRange(fromIndex: Int, toIndex: Int): IntArray {
 @kotlin.jvm.JvmVersion
 @kotlin.internal.InlineOnly
 public inline fun LongArray.copyOfRange(fromIndex: Int, toIndex: Int): LongArray {
-    return Arrays.copyOfRange(this, fromIndex, toIndex)
+    return java.util.Arrays.copyOfRange(this, fromIndex, toIndex)
 }
 
 /**
@@ -12799,7 +12799,7 @@ public inline fun LongArray.copyOfRange(fromIndex: Int, toIndex: Int): LongArray
 @kotlin.jvm.JvmVersion
 @kotlin.internal.InlineOnly
 public inline fun FloatArray.copyOfRange(fromIndex: Int, toIndex: Int): FloatArray {
-    return Arrays.copyOfRange(this, fromIndex, toIndex)
+    return java.util.Arrays.copyOfRange(this, fromIndex, toIndex)
 }
 
 /**
@@ -12808,7 +12808,7 @@ public inline fun FloatArray.copyOfRange(fromIndex: Int, toIndex: Int): FloatArr
 @kotlin.jvm.JvmVersion
 @kotlin.internal.InlineOnly
 public inline fun DoubleArray.copyOfRange(fromIndex: Int, toIndex: Int): DoubleArray {
-    return Arrays.copyOfRange(this, fromIndex, toIndex)
+    return java.util.Arrays.copyOfRange(this, fromIndex, toIndex)
 }
 
 /**
@@ -12817,7 +12817,7 @@ public inline fun DoubleArray.copyOfRange(fromIndex: Int, toIndex: Int): DoubleA
 @kotlin.jvm.JvmVersion
 @kotlin.internal.InlineOnly
 public inline fun BooleanArray.copyOfRange(fromIndex: Int, toIndex: Int): BooleanArray {
-    return Arrays.copyOfRange(this, fromIndex, toIndex)
+    return java.util.Arrays.copyOfRange(this, fromIndex, toIndex)
 }
 
 /**
@@ -12826,7 +12826,7 @@ public inline fun BooleanArray.copyOfRange(fromIndex: Int, toIndex: Int): Boolea
 @kotlin.jvm.JvmVersion
 @kotlin.internal.InlineOnly
 public inline fun CharArray.copyOfRange(fromIndex: Int, toIndex: Int): CharArray {
-    return Arrays.copyOfRange(this, fromIndex, toIndex)
+    return java.util.Arrays.copyOfRange(this, fromIndex, toIndex)
 }
 
 /**
@@ -12834,7 +12834,7 @@ public inline fun CharArray.copyOfRange(fromIndex: Int, toIndex: Int): CharArray
  */
 @kotlin.jvm.JvmVersion
 public fun <T> Array<T>.fill(element: T, fromIndex: Int = 0, toIndex: Int = size): Unit {
-    Arrays.fill(this, fromIndex, toIndex, element)
+    java.util.Arrays.fill(this, fromIndex, toIndex, element)
 }
 
 /**
@@ -12842,7 +12842,7 @@ public fun <T> Array<T>.fill(element: T, fromIndex: Int = 0, toIndex: Int = size
  */
 @kotlin.jvm.JvmVersion
 public fun ByteArray.fill(element: Byte, fromIndex: Int = 0, toIndex: Int = size): Unit {
-    Arrays.fill(this, fromIndex, toIndex, element)
+    java.util.Arrays.fill(this, fromIndex, toIndex, element)
 }
 
 /**
@@ -12850,7 +12850,7 @@ public fun ByteArray.fill(element: Byte, fromIndex: Int = 0, toIndex: Int = size
  */
 @kotlin.jvm.JvmVersion
 public fun ShortArray.fill(element: Short, fromIndex: Int = 0, toIndex: Int = size): Unit {
-    Arrays.fill(this, fromIndex, toIndex, element)
+    java.util.Arrays.fill(this, fromIndex, toIndex, element)
 }
 
 /**
@@ -12858,7 +12858,7 @@ public fun ShortArray.fill(element: Short, fromIndex: Int = 0, toIndex: Int = si
  */
 @kotlin.jvm.JvmVersion
 public fun IntArray.fill(element: Int, fromIndex: Int = 0, toIndex: Int = size): Unit {
-    Arrays.fill(this, fromIndex, toIndex, element)
+    java.util.Arrays.fill(this, fromIndex, toIndex, element)
 }
 
 /**
@@ -12866,7 +12866,7 @@ public fun IntArray.fill(element: Int, fromIndex: Int = 0, toIndex: Int = size):
  */
 @kotlin.jvm.JvmVersion
 public fun LongArray.fill(element: Long, fromIndex: Int = 0, toIndex: Int = size): Unit {
-    Arrays.fill(this, fromIndex, toIndex, element)
+    java.util.Arrays.fill(this, fromIndex, toIndex, element)
 }
 
 /**
@@ -12874,7 +12874,7 @@ public fun LongArray.fill(element: Long, fromIndex: Int = 0, toIndex: Int = size
  */
 @kotlin.jvm.JvmVersion
 public fun FloatArray.fill(element: Float, fromIndex: Int = 0, toIndex: Int = size): Unit {
-    Arrays.fill(this, fromIndex, toIndex, element)
+    java.util.Arrays.fill(this, fromIndex, toIndex, element)
 }
 
 /**
@@ -12882,7 +12882,7 @@ public fun FloatArray.fill(element: Float, fromIndex: Int = 0, toIndex: Int = si
  */
 @kotlin.jvm.JvmVersion
 public fun DoubleArray.fill(element: Double, fromIndex: Int = 0, toIndex: Int = size): Unit {
-    Arrays.fill(this, fromIndex, toIndex, element)
+    java.util.Arrays.fill(this, fromIndex, toIndex, element)
 }
 
 /**
@@ -12890,7 +12890,7 @@ public fun DoubleArray.fill(element: Double, fromIndex: Int = 0, toIndex: Int = 
  */
 @kotlin.jvm.JvmVersion
 public fun BooleanArray.fill(element: Boolean, fromIndex: Int = 0, toIndex: Int = size): Unit {
-    Arrays.fill(this, fromIndex, toIndex, element)
+    java.util.Arrays.fill(this, fromIndex, toIndex, element)
 }
 
 /**
@@ -12898,7 +12898,7 @@ public fun BooleanArray.fill(element: Boolean, fromIndex: Int = 0, toIndex: Int 
  */
 @kotlin.jvm.JvmVersion
 public fun CharArray.fill(element: Char, fromIndex: Int = 0, toIndex: Int = size): Unit {
-    Arrays.fill(this, fromIndex, toIndex, element)
+    java.util.Arrays.fill(this, fromIndex, toIndex, element)
 }
 
 /**
@@ -12925,7 +12925,7 @@ public fun <C : MutableCollection<in R>, R> Array<*>.filterIsInstanceTo(destinat
 @kotlin.jvm.JvmVersion
 public operator fun <T> Array<T>.plus(element: T): Array<T> {
     val index = size
-    val result = Arrays.copyOf(this, index + 1)
+    val result = java.util.Arrays.copyOf(this, index + 1)
     result[index] = element
     return result
 }
@@ -12936,7 +12936,7 @@ public operator fun <T> Array<T>.plus(element: T): Array<T> {
 @kotlin.jvm.JvmVersion
 public operator fun ByteArray.plus(element: Byte): ByteArray {
     val index = size
-    val result = Arrays.copyOf(this, index + 1)
+    val result = java.util.Arrays.copyOf(this, index + 1)
     result[index] = element
     return result
 }
@@ -12947,7 +12947,7 @@ public operator fun ByteArray.plus(element: Byte): ByteArray {
 @kotlin.jvm.JvmVersion
 public operator fun ShortArray.plus(element: Short): ShortArray {
     val index = size
-    val result = Arrays.copyOf(this, index + 1)
+    val result = java.util.Arrays.copyOf(this, index + 1)
     result[index] = element
     return result
 }
@@ -12958,7 +12958,7 @@ public operator fun ShortArray.plus(element: Short): ShortArray {
 @kotlin.jvm.JvmVersion
 public operator fun IntArray.plus(element: Int): IntArray {
     val index = size
-    val result = Arrays.copyOf(this, index + 1)
+    val result = java.util.Arrays.copyOf(this, index + 1)
     result[index] = element
     return result
 }
@@ -12969,7 +12969,7 @@ public operator fun IntArray.plus(element: Int): IntArray {
 @kotlin.jvm.JvmVersion
 public operator fun LongArray.plus(element: Long): LongArray {
     val index = size
-    val result = Arrays.copyOf(this, index + 1)
+    val result = java.util.Arrays.copyOf(this, index + 1)
     result[index] = element
     return result
 }
@@ -12980,7 +12980,7 @@ public operator fun LongArray.plus(element: Long): LongArray {
 @kotlin.jvm.JvmVersion
 public operator fun FloatArray.plus(element: Float): FloatArray {
     val index = size
-    val result = Arrays.copyOf(this, index + 1)
+    val result = java.util.Arrays.copyOf(this, index + 1)
     result[index] = element
     return result
 }
@@ -12991,7 +12991,7 @@ public operator fun FloatArray.plus(element: Float): FloatArray {
 @kotlin.jvm.JvmVersion
 public operator fun DoubleArray.plus(element: Double): DoubleArray {
     val index = size
-    val result = Arrays.copyOf(this, index + 1)
+    val result = java.util.Arrays.copyOf(this, index + 1)
     result[index] = element
     return result
 }
@@ -13002,7 +13002,7 @@ public operator fun DoubleArray.plus(element: Double): DoubleArray {
 @kotlin.jvm.JvmVersion
 public operator fun BooleanArray.plus(element: Boolean): BooleanArray {
     val index = size
-    val result = Arrays.copyOf(this, index + 1)
+    val result = java.util.Arrays.copyOf(this, index + 1)
     result[index] = element
     return result
 }
@@ -13013,7 +13013,7 @@ public operator fun BooleanArray.plus(element: Boolean): BooleanArray {
 @kotlin.jvm.JvmVersion
 public operator fun CharArray.plus(element: Char): CharArray {
     val index = size
-    val result = Arrays.copyOf(this, index + 1)
+    val result = java.util.Arrays.copyOf(this, index + 1)
     result[index] = element
     return result
 }
@@ -13024,7 +13024,7 @@ public operator fun CharArray.plus(element: Char): CharArray {
 @kotlin.jvm.JvmVersion
 public operator fun <T> Array<T>.plus(elements: Collection<T>): Array<T> {
     var index = size
-    val result = Arrays.copyOf(this, index + elements.size)
+    val result = java.util.Arrays.copyOf(this, index + elements.size)
     for (element in elements) result[index++] = element
     return result
 }
@@ -13035,7 +13035,7 @@ public operator fun <T> Array<T>.plus(elements: Collection<T>): Array<T> {
 @kotlin.jvm.JvmVersion
 public operator fun ByteArray.plus(elements: Collection<Byte>): ByteArray {
     var index = size
-    val result = Arrays.copyOf(this, index + elements.size)
+    val result = java.util.Arrays.copyOf(this, index + elements.size)
     for (element in elements) result[index++] = element
     return result
 }
@@ -13046,7 +13046,7 @@ public operator fun ByteArray.plus(elements: Collection<Byte>): ByteArray {
 @kotlin.jvm.JvmVersion
 public operator fun ShortArray.plus(elements: Collection<Short>): ShortArray {
     var index = size
-    val result = Arrays.copyOf(this, index + elements.size)
+    val result = java.util.Arrays.copyOf(this, index + elements.size)
     for (element in elements) result[index++] = element
     return result
 }
@@ -13057,7 +13057,7 @@ public operator fun ShortArray.plus(elements: Collection<Short>): ShortArray {
 @kotlin.jvm.JvmVersion
 public operator fun IntArray.plus(elements: Collection<Int>): IntArray {
     var index = size
-    val result = Arrays.copyOf(this, index + elements.size)
+    val result = java.util.Arrays.copyOf(this, index + elements.size)
     for (element in elements) result[index++] = element
     return result
 }
@@ -13068,7 +13068,7 @@ public operator fun IntArray.plus(elements: Collection<Int>): IntArray {
 @kotlin.jvm.JvmVersion
 public operator fun LongArray.plus(elements: Collection<Long>): LongArray {
     var index = size
-    val result = Arrays.copyOf(this, index + elements.size)
+    val result = java.util.Arrays.copyOf(this, index + elements.size)
     for (element in elements) result[index++] = element
     return result
 }
@@ -13079,7 +13079,7 @@ public operator fun LongArray.plus(elements: Collection<Long>): LongArray {
 @kotlin.jvm.JvmVersion
 public operator fun FloatArray.plus(elements: Collection<Float>): FloatArray {
     var index = size
-    val result = Arrays.copyOf(this, index + elements.size)
+    val result = java.util.Arrays.copyOf(this, index + elements.size)
     for (element in elements) result[index++] = element
     return result
 }
@@ -13090,7 +13090,7 @@ public operator fun FloatArray.plus(elements: Collection<Float>): FloatArray {
 @kotlin.jvm.JvmVersion
 public operator fun DoubleArray.plus(elements: Collection<Double>): DoubleArray {
     var index = size
-    val result = Arrays.copyOf(this, index + elements.size)
+    val result = java.util.Arrays.copyOf(this, index + elements.size)
     for (element in elements) result[index++] = element
     return result
 }
@@ -13101,7 +13101,7 @@ public operator fun DoubleArray.plus(elements: Collection<Double>): DoubleArray 
 @kotlin.jvm.JvmVersion
 public operator fun BooleanArray.plus(elements: Collection<Boolean>): BooleanArray {
     var index = size
-    val result = Arrays.copyOf(this, index + elements.size)
+    val result = java.util.Arrays.copyOf(this, index + elements.size)
     for (element in elements) result[index++] = element
     return result
 }
@@ -13112,7 +13112,7 @@ public operator fun BooleanArray.plus(elements: Collection<Boolean>): BooleanArr
 @kotlin.jvm.JvmVersion
 public operator fun CharArray.plus(elements: Collection<Char>): CharArray {
     var index = size
-    val result = Arrays.copyOf(this, index + elements.size)
+    val result = java.util.Arrays.copyOf(this, index + elements.size)
     for (element in elements) result[index++] = element
     return result
 }
@@ -13124,7 +13124,7 @@ public operator fun CharArray.plus(elements: Collection<Char>): CharArray {
 public operator fun <T> Array<T>.plus(elements: Array<out T>): Array<T> {
     val thisSize = size
     val arraySize = elements.size
-    val result = Arrays.copyOf(this, thisSize + arraySize)
+    val result = java.util.Arrays.copyOf(this, thisSize + arraySize)
     System.arraycopy(elements, 0, result, thisSize, arraySize)
     return result
 }
@@ -13136,7 +13136,7 @@ public operator fun <T> Array<T>.plus(elements: Array<out T>): Array<T> {
 public operator fun ByteArray.plus(elements: ByteArray): ByteArray {
     val thisSize = size
     val arraySize = elements.size
-    val result = Arrays.copyOf(this, thisSize + arraySize)
+    val result = java.util.Arrays.copyOf(this, thisSize + arraySize)
     System.arraycopy(elements, 0, result, thisSize, arraySize)
     return result
 }
@@ -13148,7 +13148,7 @@ public operator fun ByteArray.plus(elements: ByteArray): ByteArray {
 public operator fun ShortArray.plus(elements: ShortArray): ShortArray {
     val thisSize = size
     val arraySize = elements.size
-    val result = Arrays.copyOf(this, thisSize + arraySize)
+    val result = java.util.Arrays.copyOf(this, thisSize + arraySize)
     System.arraycopy(elements, 0, result, thisSize, arraySize)
     return result
 }
@@ -13160,7 +13160,7 @@ public operator fun ShortArray.plus(elements: ShortArray): ShortArray {
 public operator fun IntArray.plus(elements: IntArray): IntArray {
     val thisSize = size
     val arraySize = elements.size
-    val result = Arrays.copyOf(this, thisSize + arraySize)
+    val result = java.util.Arrays.copyOf(this, thisSize + arraySize)
     System.arraycopy(elements, 0, result, thisSize, arraySize)
     return result
 }
@@ -13172,7 +13172,7 @@ public operator fun IntArray.plus(elements: IntArray): IntArray {
 public operator fun LongArray.plus(elements: LongArray): LongArray {
     val thisSize = size
     val arraySize = elements.size
-    val result = Arrays.copyOf(this, thisSize + arraySize)
+    val result = java.util.Arrays.copyOf(this, thisSize + arraySize)
     System.arraycopy(elements, 0, result, thisSize, arraySize)
     return result
 }
@@ -13184,7 +13184,7 @@ public operator fun LongArray.plus(elements: LongArray): LongArray {
 public operator fun FloatArray.plus(elements: FloatArray): FloatArray {
     val thisSize = size
     val arraySize = elements.size
-    val result = Arrays.copyOf(this, thisSize + arraySize)
+    val result = java.util.Arrays.copyOf(this, thisSize + arraySize)
     System.arraycopy(elements, 0, result, thisSize, arraySize)
     return result
 }
@@ -13196,7 +13196,7 @@ public operator fun FloatArray.plus(elements: FloatArray): FloatArray {
 public operator fun DoubleArray.plus(elements: DoubleArray): DoubleArray {
     val thisSize = size
     val arraySize = elements.size
-    val result = Arrays.copyOf(this, thisSize + arraySize)
+    val result = java.util.Arrays.copyOf(this, thisSize + arraySize)
     System.arraycopy(elements, 0, result, thisSize, arraySize)
     return result
 }
@@ -13208,7 +13208,7 @@ public operator fun DoubleArray.plus(elements: DoubleArray): DoubleArray {
 public operator fun BooleanArray.plus(elements: BooleanArray): BooleanArray {
     val thisSize = size
     val arraySize = elements.size
-    val result = Arrays.copyOf(this, thisSize + arraySize)
+    val result = java.util.Arrays.copyOf(this, thisSize + arraySize)
     System.arraycopy(elements, 0, result, thisSize, arraySize)
     return result
 }
@@ -13220,7 +13220,7 @@ public operator fun BooleanArray.plus(elements: BooleanArray): BooleanArray {
 public operator fun CharArray.plus(elements: CharArray): CharArray {
     val thisSize = size
     val arraySize = elements.size
-    val result = Arrays.copyOf(this, thisSize + arraySize)
+    val result = java.util.Arrays.copyOf(this, thisSize + arraySize)
     System.arraycopy(elements, 0, result, thisSize, arraySize)
     return result
 }
@@ -13239,7 +13239,7 @@ public inline fun <T> Array<T>.plusElement(element: T): Array<T> {
  */
 @kotlin.jvm.JvmVersion
 public fun <T> Array<out T>.sort(): Unit {
-    if (size > 1) Arrays.sort(this)
+    if (size > 1) java.util.Arrays.sort(this)
 }
 
 /**
@@ -13247,7 +13247,7 @@ public fun <T> Array<out T>.sort(): Unit {
  */
 @kotlin.jvm.JvmVersion
 public fun ByteArray.sort(): Unit {
-    if (size > 1) Arrays.sort(this)
+    if (size > 1) java.util.Arrays.sort(this)
 }
 
 /**
@@ -13255,7 +13255,7 @@ public fun ByteArray.sort(): Unit {
  */
 @kotlin.jvm.JvmVersion
 public fun ShortArray.sort(): Unit {
-    if (size > 1) Arrays.sort(this)
+    if (size > 1) java.util.Arrays.sort(this)
 }
 
 /**
@@ -13263,7 +13263,7 @@ public fun ShortArray.sort(): Unit {
  */
 @kotlin.jvm.JvmVersion
 public fun IntArray.sort(): Unit {
-    if (size > 1) Arrays.sort(this)
+    if (size > 1) java.util.Arrays.sort(this)
 }
 
 /**
@@ -13271,7 +13271,7 @@ public fun IntArray.sort(): Unit {
  */
 @kotlin.jvm.JvmVersion
 public fun LongArray.sort(): Unit {
-    if (size > 1) Arrays.sort(this)
+    if (size > 1) java.util.Arrays.sort(this)
 }
 
 /**
@@ -13279,7 +13279,7 @@ public fun LongArray.sort(): Unit {
  */
 @kotlin.jvm.JvmVersion
 public fun FloatArray.sort(): Unit {
-    if (size > 1) Arrays.sort(this)
+    if (size > 1) java.util.Arrays.sort(this)
 }
 
 /**
@@ -13287,7 +13287,7 @@ public fun FloatArray.sort(): Unit {
  */
 @kotlin.jvm.JvmVersion
 public fun DoubleArray.sort(): Unit {
-    if (size > 1) Arrays.sort(this)
+    if (size > 1) java.util.Arrays.sort(this)
 }
 
 /**
@@ -13295,7 +13295,7 @@ public fun DoubleArray.sort(): Unit {
  */
 @kotlin.jvm.JvmVersion
 public fun CharArray.sort(): Unit {
-    if (size > 1) Arrays.sort(this)
+    if (size > 1) java.util.Arrays.sort(this)
 }
 
 /**
@@ -13303,7 +13303,7 @@ public fun CharArray.sort(): Unit {
  */
 @kotlin.jvm.JvmVersion
 public fun <T> Array<out T>.sort(fromIndex: Int = 0, toIndex: Int = size): Unit {
-    Arrays.sort(this, fromIndex, toIndex)
+    java.util.Arrays.sort(this, fromIndex, toIndex)
 }
 
 /**
@@ -13311,7 +13311,7 @@ public fun <T> Array<out T>.sort(fromIndex: Int = 0, toIndex: Int = size): Unit 
  */
 @kotlin.jvm.JvmVersion
 public fun ByteArray.sort(fromIndex: Int = 0, toIndex: Int = size): Unit {
-    Arrays.sort(this, fromIndex, toIndex)
+    java.util.Arrays.sort(this, fromIndex, toIndex)
 }
 
 /**
@@ -13319,7 +13319,7 @@ public fun ByteArray.sort(fromIndex: Int = 0, toIndex: Int = size): Unit {
  */
 @kotlin.jvm.JvmVersion
 public fun ShortArray.sort(fromIndex: Int = 0, toIndex: Int = size): Unit {
-    Arrays.sort(this, fromIndex, toIndex)
+    java.util.Arrays.sort(this, fromIndex, toIndex)
 }
 
 /**
@@ -13327,7 +13327,7 @@ public fun ShortArray.sort(fromIndex: Int = 0, toIndex: Int = size): Unit {
  */
 @kotlin.jvm.JvmVersion
 public fun IntArray.sort(fromIndex: Int = 0, toIndex: Int = size): Unit {
-    Arrays.sort(this, fromIndex, toIndex)
+    java.util.Arrays.sort(this, fromIndex, toIndex)
 }
 
 /**
@@ -13335,7 +13335,7 @@ public fun IntArray.sort(fromIndex: Int = 0, toIndex: Int = size): Unit {
  */
 @kotlin.jvm.JvmVersion
 public fun LongArray.sort(fromIndex: Int = 0, toIndex: Int = size): Unit {
-    Arrays.sort(this, fromIndex, toIndex)
+    java.util.Arrays.sort(this, fromIndex, toIndex)
 }
 
 /**
@@ -13343,7 +13343,7 @@ public fun LongArray.sort(fromIndex: Int = 0, toIndex: Int = size): Unit {
  */
 @kotlin.jvm.JvmVersion
 public fun FloatArray.sort(fromIndex: Int = 0, toIndex: Int = size): Unit {
-    Arrays.sort(this, fromIndex, toIndex)
+    java.util.Arrays.sort(this, fromIndex, toIndex)
 }
 
 /**
@@ -13351,7 +13351,7 @@ public fun FloatArray.sort(fromIndex: Int = 0, toIndex: Int = size): Unit {
  */
 @kotlin.jvm.JvmVersion
 public fun DoubleArray.sort(fromIndex: Int = 0, toIndex: Int = size): Unit {
-    Arrays.sort(this, fromIndex, toIndex)
+    java.util.Arrays.sort(this, fromIndex, toIndex)
 }
 
 /**
@@ -13359,7 +13359,7 @@ public fun DoubleArray.sort(fromIndex: Int = 0, toIndex: Int = size): Unit {
  */
 @kotlin.jvm.JvmVersion
 public fun CharArray.sort(fromIndex: Int = 0, toIndex: Int = size): Unit {
-    Arrays.sort(this, fromIndex, toIndex)
+    java.util.Arrays.sort(this, fromIndex, toIndex)
 }
 
 /**
@@ -13367,7 +13367,7 @@ public fun CharArray.sort(fromIndex: Int = 0, toIndex: Int = size): Unit {
  */
 @kotlin.jvm.JvmVersion
 public fun <T> Array<out T>.sortWith(comparator: Comparator<in T>): Unit {
-    if (size > 1) Arrays.sort(this, comparator)
+    if (size > 1) java.util.Arrays.sort(this, comparator)
 }
 
 /**
@@ -13375,7 +13375,7 @@ public fun <T> Array<out T>.sortWith(comparator: Comparator<in T>): Unit {
  */
 @kotlin.jvm.JvmVersion
 public fun <T> Array<out T>.sortWith(comparator: Comparator<in T>, fromIndex: Int = 0, toIndex: Int = size): Unit {
-    Arrays.sort(this, fromIndex, toIndex, comparator)
+    java.util.Arrays.sort(this, fromIndex, toIndex, comparator)
 }
 
 /**
