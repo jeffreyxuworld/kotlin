@@ -14,7 +14,5 @@ public typealias LinkedHashSet<E> = java.util.LinkedHashSet<E>
 public typealias HashSet<E> = java.util.HashSet<E>
 
 
-internal typealias Arrays = java.util.Arrays
-
 internal typealias SortedSet<E> = java.util.SortedSet<E>
 internal typealias TreeSet<E> = java.util.TreeSet<E>
