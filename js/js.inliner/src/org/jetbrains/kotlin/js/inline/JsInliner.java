@@ -100,7 +100,7 @@ public class JsInliner extends JsVisitorWithContextImpl {
                     MetadataProperties.setDescriptor(dummyInvocation, MetadataProperties.getDescriptor(x));
                     MetadataProperties.setPsiElement(dummyInvocation, MetadataProperties.getPsiElement(x));
 
-                    inline(dummyInvocation, ctx);
+                    //inline(dummyInvocation, ctx);
 
                     break;
                 }
@@ -127,6 +127,8 @@ public class JsInliner extends JsVisitorWithContextImpl {
                     MetadataProperties.setInlineStrategy(dummyInvocation, MetadataProperties.getInlineStrategy(lv));
                     MetadataProperties.setDescriptor(dummyInvocation, MetadataProperties.getDescriptor(lv));
                     MetadataProperties.setPsiElement(dummyInvocation, MetadataProperties.getPsiElement(lv));
+
+                    //inliningContexts.push(new)
 
                     inline(dummyInvocation, ctx);
 

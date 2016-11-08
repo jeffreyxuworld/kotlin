@@ -133,7 +133,7 @@ private constructor(
     }
 
     private fun isResultNeeded(call: JsInvocation): Boolean {
-        return currentStatement !is JsExpressionStatement || call != currentStatement.expression
+        return false;//currentStatement !is JsExpressionStatement || call != currentStatement.expression
     }
 
     private fun getParameters(): List<JsParameter> {
