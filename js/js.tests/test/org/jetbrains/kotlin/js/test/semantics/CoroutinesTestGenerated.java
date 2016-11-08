@@ -37,12 +37,6 @@ public class CoroutinesTestGenerated extends AbstractCoroutinesTest {
         doTest(fileName);
     }
 
-    @TestMetadata("inlineSuspendFunction.kt")
-    public void ignoredInlineSuspendFunction() throws Exception {
-        String fileName = KotlinTestUtils.navigationMetadata("compiler/testData/codegen/box/coroutines/inlineSuspendFunction.kt");
-        doTest(fileName);
-    }
-
     public void testAllFilesPresentInCoroutines() throws Exception {
         KotlinTestUtils.assertAllTestsPresentByMetadata(this.getClass(), new File("compiler/testData/codegen/box/coroutines"), Pattern.compile("^(.+)\\.kt$"), true);
     }
@@ -98,6 +92,12 @@ public class CoroutinesTestGenerated extends AbstractCoroutinesTest {
     @TestMetadata("handleResultNonUnitExpression.kt")
     public void testHandleResultNonUnitExpression() throws Exception {
         String fileName = KotlinTestUtils.navigationMetadata("compiler/testData/codegen/box/coroutines/handleResultNonUnitExpression.kt");
+        doTest(fileName);
+    }
+
+    @TestMetadata("inlineSuspendFunction.kt")
+    public void testInlineSuspendFunction() throws Exception {
+        String fileName = KotlinTestUtils.navigationMetadata("compiler/testData/codegen/box/coroutines/inlineSuspendFunction.kt");
         doTest(fileName);
     }
 
