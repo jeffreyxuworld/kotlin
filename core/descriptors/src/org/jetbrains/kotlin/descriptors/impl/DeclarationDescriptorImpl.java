@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 JetBrains s.r.o.
+ * Copyright 2010-2016 JetBrains s.r.o.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -59,8 +59,9 @@ public abstract class DeclarationDescriptorImpl extends AnnotatedImpl implements
     @NotNull
     public static String toString(@NotNull DeclarationDescriptor descriptor) {
         try {
-            return DescriptorRenderer.DEBUG_TEXT.render(descriptor) +
-                   "[" + descriptor.getClass().getSimpleName() + "@" + Integer.toHexString(System.identityHashCode(descriptor)) + "]";
+            return "[" + descriptor.getClass().getSimpleName() + "@" + Integer.toHexString(System.identityHashCode(descriptor)) + "]";
+            //return DescriptorRenderer.DEBUG_TEXT.render(descriptor) +
+            //       "[" + descriptor.getClass().getSimpleName() + "@" + Integer.toHexString(System.identityHashCode(descriptor)) + "]";
         } catch (Throwable e) {
             // DescriptionRenderer may throw if this is not yet completely initialized
             // It is very inconvenient while debugging
