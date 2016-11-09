@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 JetBrains s.r.o.
+ * Copyright 2010-2016 JetBrains s.r.o.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -735,7 +735,7 @@ class DeclarationsChecker(
     }
 
     private fun checkImplicitCallableType(declaration: KtCallableDeclaration, descriptor: CallableDescriptor) {
-        descriptor.returnType?.unwrap()?.let {
+        descriptor.returnType?.let {
             val target = declaration.nameIdentifier ?: declaration
             if (declaration.typeReference == null) {
                 if (it.isNothing() && !declaration.hasModifier(KtTokens.OVERRIDE_KEYWORD)) {
@@ -747,10 +747,13 @@ class DeclarationsChecker(
                     trace.report(IMPLICIT_INTERSECTION_TYPE.on(target, it))
                 }
             }
-            else if (it.isNothing() && it is AbbreviatedType) {
-                trace.report(
-                        (if (declaration is KtProperty) ABBREVIATED_NOTHING_PROPERTY_TYPE else ABBREVIATED_NOTHING_RETURN_TYPE).on(target)
-                )
+            else if (it.isNothing()) {
+                val isAbbreviated = it.unwrap() is AbbreviatedType
+                if (isAbbreviated) {
+                    trace.report(
+                            (if (declaration is KtProperty) ABBREVIATED_NOTHING_PROPERTY_TYPE else ABBREVIATED_NOTHING_RETURN_TYPE).on(target)
+                    )
+                }
             }
         }
     }
